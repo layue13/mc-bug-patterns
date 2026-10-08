@@ -144,6 +144,20 @@ mc-bug-patterns/scripts/scan-org.sh --dir ~/checkouts ./scan-out
 | C1 | 空输入槽 + 燃料、对每种实体/掉落物使用每个工具、高频红石拉杆压测 |
 | C2 | 伪造系统日期跑 4/1、12/9 等节日；专用服务器 classload 冒烟 |
 
+## 5.5 让 AI 批量复核
+
+扫描结果可交给 AI 逐条复核，入口是 [`AGENTS.md`](AGENTS.md)：
+
+```
+scan-org.sh → findings.jsonl（命中 + 所在方法源码 + 站点案例）
+   → AI 按 review/paradigms/<范式>.md 逐条判断 → triage.jsonl
+   → scripts/validate_triage.py（schema + 引文必须真实存在于文件）
+```
+
+- 三种结论：`confirmed`（需触发路径）/ `false_positive` / `needs_human`（需说明缺什么）。
+- 校验器能挡住"编造证据"，**不能**证明结论正确；`confirmed` 仍建议人工抽查。
+- 11 份范式清单、结论格式和提示词模板见 [`review/`](review/)。
+
 ## 6. 已知局限与下一步
 
 - 规则基于 Mojmap/MCP 常见命名写成，**对 Yarn/Fabric、Kotlin、Scala 源码基本不命中**；1.7.10 老写法只覆盖了一部分。
@@ -159,6 +173,9 @@ mc-bug-patterns/
 ├── data/mcmod-bug-catalog.json    # 176 条元数据 + 人工归类
 ├── semgrep/rules/mc-java.yml      # 19 条 Java 规则
 ├── semgrep/rules/mc-build.yml     # 依赖/构建文件规则 (Log4j)
-├── semgrep/tests/                 # 正反例（semgrep --test）
-└── scripts/{scan-org.sh,aggregate.py}
+├── semgrep/tests/                 # 规则正反例（semgrep --test）
+├── scripts/{scan-org.sh,aggregate.py,validate_triage.py}
+├── review/                        # AI 复核：范式清单 + 结论 schema + 提示词
+├── tests/                         # 聚合与校验脚本的单测
+└── AGENTS.md                      # AI 代理工作流与硬规则
 ```
