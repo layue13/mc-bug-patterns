@@ -5,8 +5,9 @@
 
 > 状态说明（诚实版）
 > - ✅ 已验证：176 条全部抓取并逐条阅读、人工归类；19 条 Semgrep 规则 + 1 条构建文件规则通过 `semgrep --test`（20/20，正反例）；扫描脚本在夹具仓库上端到端跑通。
-> - ⚠️ 未验证：规则在**真实模组仓库上的精确率/召回率**——本会话只能访问 `layue13/layue13`（没有 Java 代码），没有拿真实代码测过。
->   `confidence: LOW/MEDIUM` 的规则请当作"人工复核线索"，不要当作缺陷结论。
+> - ⚠️ **真实代码上的召回率很低**：用 5 个开源模组的 186 个真实修复提交测过（见 [`benchmark/`](benchmark/FINDINGS.md)），
+>   留出集 47 个修复里 **0 个** 被规则抓到，约 27 个真实复制修复一个都没抓到。当前规则只在少数形状上有效（后门/Log4j、
+>   客户端类进服务端、缺保护检查），**对复制类基本无效**。`confidence: LOW/MEDIUM` 的规则请当作"人工复核线索"。
 
 ## 1. 数据与方法
 
@@ -160,6 +161,8 @@ scan-org.sh → findings.jsonl（命中 + 所在方法源码 + 站点案例）
 
 ## 6. 已知局限与下一步
 
+- **基准结论见 [`benchmark/FINDINGS.md`](benchmark/FINDINGS.md)**：规则覆盖率低；真实复制 bug 多为"别名/模拟与执行不一致/重复掉落"等逻辑形状，需要从真实修复 diff 里挖新规则。
+
 - 规则基于 Mojmap/MCP 常见命名写成，**对 Yarn/Fabric、Kotlin、Scala 源码基本不命中**；1.7.10 老写法只覆盖了一部分。
 - Semgrep 无跨文件/跨模组数据流，D1/D4 的规则只能给"可疑形状"。
 - 下一步建议：先拿组织里 5–10 个已知出过 bug 的仓库试跑，人工标注命中，统计每条规则的精确率，再据此调 `confidence` 或下线噪声规则。
@@ -177,5 +180,6 @@ mc-bug-patterns/
 ├── scripts/{scan-org.sh,aggregate.py,validate_triage.py}
 ├── review/                        # AI 复核：范式清单 + 结论 schema + 提示词
 ├── tests/                         # 聚合与校验脚本的单测
+├── benchmark/                     # 真实修复提交基准集 + 结果与发现
 └── AGENTS.md                      # AI 代理工作流与硬规则
 ```
