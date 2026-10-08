@@ -1,0 +1,1613 @@
+{
+ "_source": "https://bug.mcmod.cn (MC百科「MOD特性警示」)",
+ "_license": "页面内容为 MC百科 用户编辑，除另有声明使用 CC BY-NC-SA 3.0；本文件仅保留条目元数据 + 截断摘要 + 自行归类，完整内容请访问 url。",
+ "_fetched": "2026-10-08",
+ "_levels": {
+  "致命": "服务器崩溃/回档/区块损坏/OP 命令",
+  "严重": "短时间刷大量物品/无视领地破坏/显著影响 TPS",
+  "轻微": "单物品复制/无视领地传送/区块加载/一次破坏>=25 格",
+  "无害": "影响平衡(飞行/改全服属性/创造级合成)",
+  "客户端": "仅对玩家自身不利(崩溃/渲染/FPS)",
+  "暂无": "未评级"
+ },
+ "_categories": {
+  "D1": "多人/并发 GUI 状态不同步复制",
+  "D2": "Shift 点击/槽位索引/热键搬运复制",
+  "D3": "加工·合成·自动化传输 不消耗或多倍产出",
+  "D4": "堆叠·NBT·物品/实体状态携带复制",
+  "D5": "流体与容量边界复制",
+  "G1": "无视领地/权限/禁用方块",
+  "G2": "免费区块常加载",
+  "G3": "全局世界状态与平衡破坏",
+  "G4": "后门/RCE/越权命令/未校验发包",
+  "C1": "服务端崩溃·卡顿·资源失控",
+  "C2": "客户端崩溃·渲染·跨模组兼容",
+  "O": "其他/非安全功能缺陷"
+ },
+ "entries": [
+  {
+   "id": 0,
+   "url": "https://bug.mcmod.cn/item/20181387.html",
+   "name": "建筑手杖刷反应堆方块",
+   "level": "轻微",
+   "mods": "建筑手杖 (Construction Wand); Powah! Rearchitected",
+   "category": "D4",
+   "summary": "使用建筑手杖批量建筑Powah的反应堆方块即可复制反应堆方块。"
+  },
+  {
+   "id": 1,
+   "url": "https://bug.mcmod.cn/item/20181386.html",
+   "name": "机械动力蓝图刷物品和执行命令",
+   "level": "致命",
+   "mods": "机械动力 (Create)",
+   "category": "G4",
+   "summary": "玩家可以手动上传蓝图 nbt 文件，在蓝图桌中关联蓝图，从而使用蓝图加农炮将结构部署到世界中。 nbt 结构中可含有各类物品甚至是创造物品的容器，使得玩家可随意获取物品。   如果还添加了类似 Supplementaries 可以捕捉实体的模组，则可以放置含有命令的命令方块到世界中，从而执行任意命令。 解决方案：在 server.properties 中禁用命令方块： enable-command"
+  },
+  {
+   "id": 2,
+   "url": "https://bug.mcmod.cn/item/20181385.html",
+   "name": "传送带 (Mechanical Belt)",
+   "level": "严重",
+   "mods": "机械动力 (Create)",
+   "category": "D3",
+   "summary": "一种基于机械动力传送带与黄铜漏洞的高效通用物品复制，结构可以如下图。"
+  },
+  {
+   "id": 3,
+   "url": "https://bug.mcmod.cn/item/20181384.html",
+   "name": "自动合成器 (Auto Crafter)",
+   "level": "严重",
+   "mods": "循环 (Cyclic)",
+   "category": "D3",
+   "summary": "使输入栏为空，在有供能、红石模式为始终工作且设置好配方的情况下，将配方中的两个物品放入左侧的输入栏后，机器会开始工作并持续输出产物，无论输入栏是否有足够的材料。"
+  },
+  {
+   "id": 4,
+   "url": "https://bug.mcmod.cn/item/20181383.html",
+   "name": "1份材料4份产出",
+   "level": "轻微",
+   "mods": "",
+   "category": "D3",
+   "summary": "将坩锅/巫师炼药锅以2*2（或更小）的形式摆放时，输入的材料会被多个坩锅/巫师炼药锅同时计入，从而导致多倍产出。"
+  },
+  {
+   "id": 5,
+   "url": "https://bug.mcmod.cn/item/20181382.html",
+   "name": "车万女仆可堆叠物品复制",
+   "level": "严重",
+   "mods": "车万女仆 (Touhou Little Maid)",
+   "category": "D2",
+   "summary": "在女仆身上放入整组的任意可堆叠物品，同时将玩家物品栏填满，其中一格放入女仆身上的物品，数量小于一组。  打开女仆，通过快速移动（Shift+鼠标左击）移动整组物品，身上不满一组的该物品被填满，女仆身上的对应物品不会被消耗。  解决方案：此漏洞已于 1.16.5-1.1.0 版本修复，后续版本无此漏洞，请前往此链接下载最新版本。"
+  },
+  {
+   "id": 6,
+   "url": "https://bug.mcmod.cn/item/20181381.html",
+   "name": "狼吞虎咽Mod物品复制",
+   "level": "严重",
+   "mods": "狼吞虎咽 (Wildly Eat)",
+   "category": "D4",
+   "summary": "食用不能保存内容物的容器时，容器的内容物会掉落出来，容器被吃掉；当把容器再吐出来时，容器内的物品仍然保存在其中，实现了物品的复制。"
+  },
+  {
+   "id": 7,
+   "url": "https://bug.mcmod.cn/item/20181380.html",
+   "name": "Dank Storage 刷物品",
+   "level": "严重",
+   "mods": "黑盒存储 (Dank Storage)",
+   "category": "D2",
+   "summary": "同时按右键和 Q 打开 UI 就可以翻倍复制存储内所有物品，指数级复制物品且无视 64 堆叠。 快捷键可以直接丢弃一格内所有物品，导致最多一次性复制 81*2.147E9 个物品 而且可以丢出会导致 3E9 的物品实体出现在世界。 tps 越低延迟越高此问题越容易复现，单机实现难度是服务器的好几倍。"
+  },
+  {
+   "id": 8,
+   "url": "https://bug.mcmod.cn/item/20181379.html",
+   "name": "装配透镜后魔力脉冲击中方块崩溃",
+   "level": "致命",
+   "mods": "植物魔法 (Botania); 更多实用设备2 (Extra Utilities 2)",
+   "category": "C1",
+   "summary": "装配有魔力透镜:力量的魔力脉冲枪或魔力发射器发出的魔力脉冲，击中更多实用设备2的压缩方块后会导致服务端崩溃。"
+  },
+  {
+   "id": 9,
+   "url": "https://bug.mcmod.cn/item/20181378.html",
+   "name": "机械手抽屉复制",
+   "level": "严重",
+   "mods": "机械动力 (Create); 储物抽屉 (Storage Drawers)",
+   "category": "D4",
+   "summary": "机械手使用任意斧子破坏任意抽屉时，抽屉会变为掉落物储存在机械手内，但被摆放下来的抽屉不会被破坏。 解决方案：由百科用户SkyIce（UID：175443）提供的 KubeJS 脚本：FixCopy（链接），需求[KJS] KubeJS。"
+  },
+  {
+   "id": 10,
+   "url": "https://bug.mcmod.cn/item/20181377.html",
+   "name": "原子再构机刷出任意物品",
+   "level": "严重",
+   "mods": "实用拓展 (Actually Additions)",
+   "category": "G3",
+   "summary": "被拿着 11 号音乐唱片的玩家右击至少 500 次以后，原子再构机将会启用“混乱透镜”功能。 “混乱透镜”能刷出大量的任意物品，可能刷出各模组的创造物品或者会使游戏崩溃的物品。 解决方案：在配置文件找到\"What is 11\" = 11 配置项，把第二个11改成任意其他数字即可。"
+  },
+  {
+   "id": 11,
+   "url": "https://bug.mcmod.cn/item/20181376.html",
+   "name": "无限黏液草丛",
+   "level": "轻微",
+   "mods": "等价交换重制版 (ProjectE); 匠魂3 (Tinkers' Construct 3)",
+   "category": "D3",
+   "summary": "用红物质拳剑左击黏液草丛会无限掉落黏液草丛。"
+  },
+  {
+   "id": 12,
+   "url": "https://bug.mcmod.cn/item/20181375.html",
+   "name": "无对应配方导致的崩溃",
+   "level": "致命",
+   "mods": "Gaia Dimension",
+   "category": "C1",
+   "summary": "当机器中放入燃料后，如果输入槽放入的物品不存在其配方中，服务端将会崩溃。"
+  },
+  {
+   "id": 13,
+   "url": "https://bug.mcmod.cn/item/20181374.html",
+   "name": "匠魂补充凿子刷物品",
+   "level": "轻微",
+   "mods": "匠魂补充 (Tinkers' Complement); 凿子 (Chisel)",
+   "category": "D1",
+   "summary": "使用匠魂凿子凿制超过其耐久数量的物品时，凿子会立刻损坏并且丢出材料，将凿子在装配台修复后再次打开凿子UI界面时，在UI界面中会保留与损坏时返还的剩余材料等量的物品。 解决方案：安装 DupeFix Project 模组 3.1.1 或更高版本。"
+  },
+  {
+   "id": 14,
+   "url": "https://bug.mcmod.cn/item/20181373.html",
+   "name": "更好看的羊驼（Better Than Llamas）彩蛋崩溃",
+   "level": "客户端",
+   "mods": "更好看的羊驼 (Better Than Llamas)",
+   "category": "C2",
+   "summary": "模组在4月1日和12月9日有一个彩蛋内容，但此彩蛋内容存在漏洞，会导致游戏崩溃，详见github.com 解决方案：删除此模组或者将系统时间调至其他日期"
+  },
+  {
+   "id": 15,
+   "url": "https://bug.mcmod.cn/item/20181372.html",
+   "name": "液体漏斗 (Liquid Hopper)",
+   "level": "严重",
+   "mods": "气动工艺 (PneumaticCraft: Repressurized)",
+   "category": "D5",
+   "summary": "手持装有流体的液体漏斗右击可以存储流体的方块将漏斗中的流体倒入方块时，如果方块的流体储存储上限大于液体漏斗中流体的数量，则液体漏斗中的流体则会不被消耗地全部倒入方块中。 此方法可以复制任何可装入液体漏斗的流体。"
+  },
+  {
+   "id": 16,
+   "url": "https://bug.mcmod.cn/item/20181371.html",
+   "name": "NTW-20",
+   "level": "客户端",
+   "mods": "维克的现代战争 (Vic's Modern Warfare Mod)",
+   "category": "C2",
+   "summary": "使用NTW-20这把狙击步枪（包括获取、合成等）在绝大数情况下会导致客户端崩溃。"
+  },
+  {
+   "id": 17,
+   "url": "https://bug.mcmod.cn/item/20181370.html",
+   "name": "沉浸式传送门命令",
+   "level": "客户端",
+   "mods": "沉浸式传送门 (Immersive Portals)",
+   "category": "C2",
+   "summary": "使用 /portal wiki 后会使客户端断开与服务器的连接。"
+  },
+  {
+   "id": 18,
+   "url": "https://bug.mcmod.cn/item/20181369.html",
+   "name": "引路线卷 (Guiding Thread)",
+   "level": "客户端",
+   "mods": "巫师宝具 (Witching Gadgets)",
+   "category": "C1",
+   "summary": "开启引路线卷之后，会持续增加玩家 playerdata 的 NBT 文件大小。 到达一定程度后（约40kB），玩家会因 NBT 数据溢出导致掉线，并且无法重新上线，除非清空背包。"
+  },
+  {
+   "id": 19,
+   "url": "https://bug.mcmod.cn/item/20181368.html",
+   "name": "灵魂火盆 (Soul Brazier)",
+   "level": "无害",
+   "mods": "神秘探险 (Thaumic Exploration)",
+   "category": "O",
+   "summary": "多人服务器时，在玩家下线时拆掉灵魂火盆，扭曲值不会回到玩家身上，即玩家的扭曲值会被清空。"
+  },
+  {
+   "id": 20,
+   "url": "https://bug.mcmod.cn/item/20181367.html",
+   "name": "虚空飞轮",
+   "level": "轻微",
+   "mods": "机械动力 (Create)",
+   "category": "O",
+   "summary": "使用机械动力的动力活塞推动正在工作的飞轮，当动力活塞停止运作时，被推出结构的飞轮仍然会转动，且继承被推出结构前的应力生产量及转速。"
+  },
+  {
+   "id": 21,
+   "url": "https://bug.mcmod.cn/item/20181366.html",
+   "name": "任务显示器 (Task Screen)",
+   "level": "严重",
+   "mods": "搬运 (Carry On)",
+   "category": "D4",
+   "summary": "Carry On 模组在靠近方块时按 Shift+右键 可以把这个方块抱起来。 对 FTB 任务中的任务显示器按 Shift+右键，GUI 中的第二个选项可以改它的皮肤，填入方块名称它的外表就会变成对应的方块。 这时如果再用 Carry On 把这个方块搬起来再放下，这个任务显示器就会变成真正的对应方块。 此漏洞可以使任务显示器刷到绝大部分的方块甚至是创造物品，严重影响平衡性。"
+  },
+  {
+   "id": 22,
+   "url": "https://bug.mcmod.cn/item/20181365.html",
+   "name": "Apache Log4j 远程代码执行漏洞",
+   "level": "致命",
+   "mods": "",
+   "category": "G4",
+   "summary": "通过聊天栏等方式输入相应关键词，使服务端执行相关内容。 解决方案：排查是否引用log4j-api、log4j-core。 部分可手动更新log4j2。 在修复此漏洞的服务端发布前暂时关闭服务器。 安装Log4J修复补丁模组。 安装FixLog4j214插件。 出现问题的源码段落：包括但不限于：LOG4J2-3201 - Limit the protocols JNDI can use by def"
+  },
+  {
+   "id": 23,
+   "url": "https://bug.mcmod.cn/item/20181364.html",
+   "name": "旅行手袋 (Mini Handbag)",
+   "level": "致命",
+   "mods": "额外植物学 (ExtraBotany)",
+   "category": "C1",
+   "summary": "旅行手袋放在物品栏第一格，将其右击打开，鼠标移动到手袋中的物品栏（除装备栏随意）按下数字键1，手袋会放入自己的格子中。关闭旅行手袋会使得游戏单机崩溃（几率炸端），服务器同样。"
+  },
+  {
+   "id": 24,
+   "url": "https://bug.mcmod.cn/item/20181363.html",
+   "name": "盖亚守护者Ⅲ/空之律者",
+   "level": "暂无",
+   "mods": "额外植物学 (ExtraBotany)",
+   "category": "O",
+   "summary": "BOSS 盖亚守护者Ⅲ和空之律者会生成带有指令杀的地雷，如果玩家触碰到地雷将会直接掉出世界。 但是有一个bug会让玩家无法正常死亡没有生命值，使用第三人称视角会发现玩家在不断抽搐，并且无法与物品交互也无法自杀。 解决方案：可通过安装Entity NaN Health Fix模组解决"
+  },
+  {
+   "id": 25,
+   "url": "https://bug.mcmod.cn/item/20181362.html",
+   "name": "Airship Workbench (Airship Workbench)",
+   "level": "客户端",
+   "mods": "维斯工艺-飞艇！ (ViesCraft - Airships!)",
+   "category": "C2",
+   "summary": "退出飞艇工作台界面时物品会留在工作台里，此时从外部看可以看到工作台的上面放置了物品，就像匠魂的工作站一样。但是，一旦你再次打开飞艇工作台的界面，里面的物品就会立马消失，再次退出界面也不会使其复原。"
+  },
+  {
+   "id": 26,
+   "url": "https://bug.mcmod.cn/item/20181361.html",
+   "name": "冬冬的随意创作局域网连接和本地联机",
+   "level": "致命",
+   "mods": "冬冬的随意创作 (Dong Dong's random creation)",
+   "category": "C2",
+   "summary": "如果直接使用局域网连接和本地联机会造成无法连接和崩溃。 解决方案：更新模组至 0.2.4 及以后版本"
+  },
+  {
+   "id": 27,
+   "url": "https://bug.mcmod.cn/item/20181360.html",
+   "name": "Eternal Tales建筑生成机制",
+   "level": "严重",
+   "mods": "永恒传说 (Eternal Tales)",
+   "category": "O",
+   "summary": "旧存档在首次加载该模组时，会在所在区块强制生成建筑。"
+  },
+  {
+   "id": 28,
+   "url": "https://bug.mcmod.cn/item/20181359.html",
+   "name": "巴迪卡牌包 (Buddycard Pack)",
+   "level": "客户端",
+   "mods": "巴迪卡牌 (Buddycards)",
+   "category": "C2",
+   "summary": "打开农夫乐事包会导致生物不能移动，物品不能使用，退出一直显示保存世界中无法保存的BUG。作者表示目前无暇处理过去版本的问题，只在1.17的版本中做了修复。 解决方案：作者建议禁用合成卡包的配方，采用其他获取方式。"
+  },
+  {
+   "id": 29,
+   "url": "https://bug.mcmod.cn/item/20181358.html",
+   "name": "空间塔搬混沌晶体",
+   "level": "严重",
+   "mods": "应用能源2 (Applied Energistics 2); 龙之进化/龙之研究 (Draconic Evolution)",
+   "category": "G1",
+   "summary": "AE的空间塔可以搬走正在爆炸动画的混沌晶体的爆炸实体。 无视领地插件破坏方圆千格方块。"
+  },
+  {
+   "id": 30,
+   "url": "https://bug.mcmod.cn/item/20181357.html",
+   "name": "物质炮射末影龙崩端",
+   "level": "暂无",
+   "mods": "应用能源2 (Applied Energistics 2)",
+   "category": "C2",
+   "summary": "使用物质炮射击末影龙会导致客户端卡死。 测试环境： 模式：单人 弹药：铁粒 启动器：HMCL   尚未确认是否对服务端有影响。"
+  },
+  {
+   "id": 31,
+   "url": "https://bug.mcmod.cn/item/20181356.html",
+   "name": "[1.16.5] 星能液桶用于合成祭坛时不会消耗桶里的星能液",
+   "level": "无害",
+   "mods": "星辉魔法 (Astral Sorcery)",
+   "category": "D3",
+   "summary": "使用星辉魔法的各种合成祭坛合成物品时，当合成材料含有星能液桶时，合成结束后，桶里的星能液并没有被消耗。 此漏洞已有人向github反馈：https://github.com/HellFirePvP/AstralSorcery/issues/1846"
+  },
+  {
+   "id": 32,
+   "url": "https://bug.mcmod.cn/item/20181355.html",
+   "name": "反弹火球",
+   "level": "客户端",
+   "mods": "危险RPG (Danger RPG)",
+   "category": "C2",
+   "summary": "反弹火球后会导致游戏闪退。"
+  },
+  {
+   "id": 33,
+   "url": "https://bug.mcmod.cn/item/20181354.html",
+   "name": "旅行者背包+灵魂绑定附魔（Corail的墓碑）刷物品",
+   "level": "轻微",
+   "mods": "Corail 的墓碑 (Corail's Tombstone); 旅行者背包 (Traveler's Backpack)",
+   "category": "D4",
+   "summary": "复现步骤： 1.向旅行者背包添加灵魂绑定附魔； 2.背上旅行者背包； 3.死亡，重生后附有灵魂绑定的背包会自动进入物品栏； 4.到达墓碑生成处，会发现地面同样掉落有相同的背包。 向背包内填入物品，即可对其批量复制。 解决方案：禁止旅行者背包附加灵魂绑定附魔。"
+  },
+  {
+   "id": 34,
+   "url": "https://bug.mcmod.cn/item/20181353.html",
+   "name": "储电箱免疫绑定诅咒",
+   "level": "无害",
+   "mods": "工业时代2 (Industrial Craft 2)",
+   "category": "O",
+   "summary": "装备附魔了绑定诅咒，打开储电箱/CESU/MFE/MFSU后显示的装备栏中可以脱下装备。"
+  },
+  {
+   "id": 35,
+   "url": "https://bug.mcmod.cn/item/20181352.html",
+   "name": "氧化 (Combustion)",
+   "level": "轻微",
+   "mods": "空岛资源2 (Sky Resources 2)",
+   "category": "D3",
+   "summary": "在服务器中使用高频红石激活氧化加热器会导致原材料与产物成倍复制。"
+  },
+  {
+   "id": 36,
+   "url": "https://bug.mcmod.cn/item/20181351.html",
+   "name": "整理 (Inventory Sorting)",
+   "level": "严重",
+   "mods": "夸克 (Quark)",
+   "category": "D2",
+   "summary": "部分模组的输入槽有东西时点取出会把输入槽的东西取出来，但输入槽的物品并不减少。"
+  },
+  {
+   "id": 37,
+   "url": "https://bug.mcmod.cn/item/20181350.html",
+   "name": "信标增强机 (Beacon Enhancer)",
+   "level": "暂无",
+   "mods": "更多的合成 (Crafting++)",
+   "category": "C1",
+   "summary": "在服务器中放置生效的信标增强器会导致0.5秒左右的lag，两个会导致10秒左右的lag，三个会导致5分钟的lag，5个则直接导致半小时的lag，从而导致server卡死进而崩服。client正常。  该现象在单机时也会发生，但是似乎比服务器情形少见。"
+  },
+  {
+   "id": 38,
+   "url": "https://bug.mcmod.cn/item/20181349.html",
+   "name": "坐标记录仪 (Coordinate Recorder)",
+   "level": "暂无",
+   "mods": "更多的合成 (Crafting++)",
+   "category": "C1",
+   "summary": "使用坐标记录仪生成末地折跃门后，如果折跃门的目标距离较远，可能会导致在尝试传送玩家或任何实体的时候server卡死，此时client仍然正常。 因此请1.17快照版本玩家注意尽量避免使用该物品。"
+  },
+  {
+   "id": 39,
+   "url": "https://bug.mcmod.cn/item/20181348.html",
+   "name": "秋夕 (Qiuxi)",
+   "level": "严重",
+   "mods": "黄金之秋 (The Golden Autumn)",
+   "category": "C1",
+   "summary": "生物本身特性。 受到伤害时瞬间召唤4个僵尸（如果被直接击杀则同时召唤自身），在窒息等情况下召唤速度近乎循环命令方块。"
+  },
+  {
+   "id": 40,
+   "url": "https://bug.mcmod.cn/item/20181347.html",
+   "name": "贝叶棕钓鱼竿 (Corphyry Fishing Rod)",
+   "level": "致命",
+   "mods": "原始核心 (PrimalCore)",
+   "category": "C1",
+   "summary": "右击将贝叶棕钓鱼竿的钓鱼钩抛出去，钓鱼钩接触到熔岩表面时钓鱼正常，而钓鱼钩接触到实体时则会发生崩溃。此实体无论是玩家、还是生物、甚至是掉在地上的物品也会崩溃。 解决方案：使用贝叶棕钓鱼竿时请确保不要钩到实体。服务器可以ban此物品或禁用合成表。 已有人向GitHub反馈类似的问题：https://github.com/An-Sar/PrimalCore/issues/342，发布时间：2019年8"
+  },
+  {
+   "id": 41,
+   "url": "https://bug.mcmod.cn/item/20181346.html",
+   "name": "终极无线终端 (Wireless Ultimate Terminal)",
+   "level": "致命",
+   "mods": "AE2 Wireless Terminal Library",
+   "category": "C1",
+   "summary": "问题描述： 1.该物品存在于饰品栏中时，模式切换按钮工作异常。（issue #8）-无害 2.使用热键或潜行右击转盘切换的方式打开最后一次关闭界面时处于WFT（无线流体终端）模式的WUT并进行物品存放互动后，服务端中除ME接口终端外的所有ME终端（包括无线终端与AE2原生的有线终端）将立即终止对内容物的正常显示。（issue #16）-致命/严重"
+  },
+  {
+   "id": 42,
+   "url": "https://bug.mcmod.cn/item/20181345.html",
+   "name": "黑洞护符 (Black Hole Talisman)",
+   "level": "严重",
+   "mods": "植物魔法 (Botania)",
+   "category": "D4",
+   "summary": "黑洞护符往里面存x个物品，在用AE的空白模板合成。 之后拿出黑洞护符的物品在往黑洞护符里放一个物品。 再将黑洞护符拿去分子装配室合成，可以实现1变x。"
+  },
+  {
+   "id": 43,
+   "url": "https://bug.mcmod.cn/item/20181344.html",
+   "name": "/dev/null (/dev/null)",
+   "level": "严重",
+   "mods": "开放式方块 (OpenBlocks)",
+   "category": "D2",
+   "summary": "两个/dev/null和快捷键配合使用会复制一份物品。 在快捷栏1、2各放一个/dev/null然后再第一个放入物品后对着第二个/dev/null按数字1即可。"
+  },
+  {
+   "id": 44,
+   "url": "https://bug.mcmod.cn/item/20181343.html",
+   "name": "基础工作台 (Basic Crafting Table)",
+   "level": "严重",
+   "mods": "合成拓展 (Extended Crafting)",
+   "category": "D3",
+   "summary": "通过漏斗可无消耗制作物品。"
+  },
+  {
+   "id": 45,
+   "url": "https://bug.mcmod.cn/item/20181342.html",
+   "name": "匠魂装配台",
+   "level": "轻微",
+   "mods": "匠魂2 (Tinkers' Construct 2)",
+   "category": "D1",
+   "summary": "两个玩家同时打开匠魂装配台 GUI A玩家放入匠魂工具 B玩家需修改改工具名称 A玩家可以不消耗复制一份相同的工具 B玩家继续改名，A玩家可以继续复制拿出"
+  },
+  {
+   "id": 46,
+   "url": "https://bug.mcmod.cn/item/20181341.html",
+   "name": "世界再见 (Goodbye world)",
+   "level": "严重",
+   "mods": "梗多武器 (StemWeapon)",
+   "category": "C1",
+   "summary": "激活后会产生极卡顿的效果。"
+  },
+  {
+   "id": 47,
+   "url": "https://bug.mcmod.cn/item/20181340.html",
+   "name": "Blur导致Storage Tech的GUI部分消失",
+   "level": "客户端",
+   "mods": "界面背景模糊 (Blur); Storage Tech",
+   "category": "C2",
+   "summary": "此mod会导致Storage Tech的GUI部分消失。 解决方案：前往模组设定找到Blur，点击config进入配置页面，点击guiExclusion右方按钮，添加 javapower.storagetech.gui.GuiContainerDiskWorkbench 和 javapower.storagetech.gui.GuiContainerFluidDiskWorkbench。"
+  },
+  {
+   "id": 48,
+   "url": "https://bug.mcmod.cn/item/20181339.html",
+   "name": "鱼缸 (Fish Tank)",
+   "level": "致命",
+   "mods": "海洋物语 (Mariculture)",
+   "category": "C1",
+   "summary": "将物品放入鱼缸会导致崩溃。"
+  },
+  {
+   "id": 49,
+   "url": "https://bug.mcmod.cn/item/20181338.html",
+   "name": "黑洞存储控制器(弃用) (Black Hole Controller (DEPRECATED))",
+   "level": "严重",
+   "mods": "工业先锋 (Industrial Foregoing); 暮色森林 (The Twilight Forest)",
+   "category": "D4",
+   "summary": "黑洞存储控制器(弃用)可修改黑洞存储器的nbt标签，导致物品复制。 在新版被弃用的控制器可由拆解台合成。"
+  },
+  {
+   "id": 50,
+   "url": "https://bug.mcmod.cn/item/20181335.html",
+   "name": "ForgeMultipart",
+   "level": "致命",
+   "mods": "CB Multipart / Forge Multipart CBE / Forge Multi Part",
+   "category": "C1",
+   "summary": "在紧贴着TNT的一个方块内放置两个红石火把会导致崩溃。"
+  },
+  {
+   "id": 51,
+   "url": "https://bug.mcmod.cn/item/20181334.html",
+   "name": "手掌花 (Rannuncarpus)",
+   "level": "严重",
+   "mods": "植物魔法 (Botania)",
+   "category": "G1",
+   "summary": "手掌花可放置服务器被禁用的方块。"
+  },
+  {
+   "id": 52,
+   "url": "https://bug.mcmod.cn/item/20181333.html",
+   "name": "虚空瓶 (Void Bottle)",
+   "level": "轻微",
+   "mods": "海洋物语 (Mariculture)",
+   "category": "O",
+   "summary": "虚空瓶被破坏时会掉落一个虚空瓶与一个无贴图的虚空瓶。"
+  },
+  {
+   "id": 53,
+   "url": "https://bug.mcmod.cn/item/20181332.html",
+   "name": "拆解台 (Uncrafting Table)",
+   "level": "严重",
+   "mods": "暮色森林 (The Twilight Forest); 战利品 (Loot Bags)",
+   "category": "D3",
+   "summary": "战利品袋拿出部分物品时依旧可以被拆解台拆解。 解决方案：将战利品mod升级至较新版本"
+  },
+  {
+   "id": 54,
+   "url": "https://bug.mcmod.cn/item/20181331.html",
+   "name": "魔力超立方体 (Mana Tesseract)",
+   "level": "严重",
+   "mods": "植物学拓展 (Botanic Additions)",
+   "category": "D4",
+   "summary": "在绑定频道时会使物品数量翻倍。 解决方案：将植物学拓展升级至较新版本BotanicAdditions-1.12.2-12.2.6"
+  },
+  {
+   "id": 55,
+   "url": "https://bug.mcmod.cn/item/20181330.html",
+   "name": "魔力超立方体 (Mana Tesseract)",
+   "level": "无害",
+   "mods": "植物学拓展 (Botanic Additions)",
+   "category": "O",
+   "summary": "魔力超立方体使用一段时间后会失效。"
+  },
+  {
+   "id": 56,
+   "url": "https://bug.mcmod.cn/item/20181329.html",
+   "name": "旅行者背包 (Traveller's Backpack)",
+   "level": "严重",
+   "mods": "旅行者背包 (Traveler's Backpack)",
+   "category": "D1",
+   "summary": "在打开GUI放入物品后调换背包位置，取出物品并丢出背包会导致物品翻倍。"
+  },
+  {
+   "id": 57,
+   "url": "https://bug.mcmod.cn/item/20181328.html",
+   "name": "终极维生指环 (Ultimate Life Support Ring)",
+   "level": "无害",
+   "mods": "更多电力装置 (More Electric Tools)",
+   "category": "O",
+   "summary": "穿戴终极维生指环，在死亡不掉落时人物无法死亡。"
+  },
+  {
+   "id": 58,
+   "url": "https://bug.mcmod.cn/item/20181327.html",
+   "name": "帐篷 (Teepee)",
+   "level": "轻微",
+   "mods": "群峦传说 + (Terrafirmacraft +)",
+   "category": "O",
+   "summary": "用镐子破坏帐篷后会同时掉落兽皮与帐篷物品。"
+  },
+  {
+   "id": 59,
+   "url": "https://bug.mcmod.cn/item/20181326.html",
+   "name": "拆解台 (Uncrafting Table)",
+   "level": "严重",
+   "mods": "暮色森林 (The Twilight Forest)",
+   "category": "D3",
+   "summary": "拆解台同时进行拆解与合成操作时,若拆解与合成为同一物品会导致物品复制，同时使一些物品超过堆叠上限。"
+  },
+  {
+   "id": 60,
+   "url": "https://bug.mcmod.cn/item/20181325.html",
+   "name": "物品提取管道 (Item Extraction Cable)",
+   "level": "严重",
+   "mods": "终极堆叠 (UltimateStack); 循环 (Cyclic)",
+   "category": "D3",
+   "summary": "如图在B箱中放任意可堆叠物品,将会以64倍复制到A箱。"
+  },
+  {
+   "id": 61,
+   "url": "https://bug.mcmod.cn/item/20181324.html",
+   "name": "背包(基础) (Satchel (Basic))",
+   "level": "严重",
+   "mods": "热力膨胀5 (Thermal Expansion 5)",
+   "category": "D4",
+   "summary": "任意两个相同背包（基础-谐振），在黑白名单界面互相交换会导致物品统一。"
+  },
+  {
+   "id": 62,
+   "url": "https://bug.mcmod.cn/item/20181323.html",
+   "name": "渡鸦哨 (Raven Whistle)",
+   "level": "客户端",
+   "mods": "Fish的不死崛起/Fish的亡灵崛起 (Fish's Undead Rising)",
+   "category": "C2",
+   "summary": "用渡鸦哨右击渡鸦会导致崩溃。"
+  },
+  {
+   "id": 63,
+   "url": "https://bug.mcmod.cn/item/20181322.html",
+   "name": "虚空口袋 (Voidlinked Bag)",
+   "level": "客户端",
+   "mods": "巫师宝具 (Witching Gadgets)",
+   "category": "C2",
+   "summary": "打开巫师宝具中的虚空口袋会导致客户端崩溃。"
+  },
+  {
+   "id": 64,
+   "url": "https://bug.mcmod.cn/item/20181321.html",
+   "name": "储物箱 (基础) (Cache (Basic))",
+   "level": "无害",
+   "mods": "热力膨胀5 (Thermal Expansion 5); 匠魂2 (Tinkers' Construct 2)",
+   "category": "O",
+   "summary": "当使用储物箱(所有等级)储存匠魂工具/护甲（非损坏）时，使用新月锤拆掉储物箱，并重新放置，取下物品，工具/护甲会被修复。"
+  },
+  {
+   "id": 65,
+   "url": "https://bug.mcmod.cn/item/20181320.html",
+   "name": "物流整理机 (Logistical Sorter)",
+   "level": "严重",
+   "mods": "通用机械 (Mekanism); 热力膨胀4 (Thermal Expansion 4)",
+   "category": "D4",
+   "summary": "物流整理器可以在传输过程中无视并统一物品状态，这就会导致储物箱（四种都可以）存储的物品被复制。"
+  },
+  {
+   "id": 66,
+   "url": "https://bug.mcmod.cn/item/20181319.html",
+   "name": "Translocation Matrix",
+   "level": "致命",
+   "mods": "Lord Craft",
+   "category": "C1",
+   "summary": "若Translocation Matrix上方有方块且被转移的方块位于Translocation Matrix侧面，则被高频红石激活（包括快速反复拉动拉杆）时会导致方块复制，且伴随严重卡顿并有可能堆栈溢出导致崩溃。"
+  },
+  {
+   "id": 67,
+   "url": "https://bug.mcmod.cn/item/20181318.html",
+   "name": "储物箱 (基础) (Cache (Basic))",
+   "level": "严重",
+   "mods": "热力膨胀5 (Thermal Expansion 5); 工业时代2 (Industrial Craft 2)",
+   "category": "D2",
+   "summary": "当同时拥有热力的储物箱（基础）和工业的扳手时，如果把物品放到副手位置，然后拿着扳手右键储物箱，再 SHIFT 左键点一下储物箱，副手的物品就会变成两个。 ​"
+  },
+  {
+   "id": 68,
+   "url": "https://bug.mcmod.cn/item/20181317.html",
+   "name": "红石冷凝模块 (RSH-Condensator)",
+   "level": "轻微",
+   "mods": "工业时代2 (Industrial Craft 2)",
+   "category": "D3",
+   "summary": "在青金石/红石冷凝模块堆叠的情况下(假定堆叠了a个)，即使取出了合成物，合成栏里面还会存在冷凝模块(会刷出a-1个物品)。"
+  },
+  {
+   "id": 69,
+   "url": "https://bug.mcmod.cn/item/20181315.html",
+   "name": "活化权杖 (Wand of Animation)",
+   "level": "严重",
+   "mods": "混沌之地 (The Erebus)",
+   "category": "G1",
+   "summary": "对于装有 Residence 领地插件的服务器，活化权杖可以无视领地权限对方块进行转化。 通过将活化的方块引入领地后再重新方块化，即可强行在无放置权限的领地内放置方块。然后重新对领地内的方块进行活化操作，会正常生成活化的方块生物，但由于玩家没有破坏权限，被活化的方块不会消失。由此即可大量获取任意可被活化的方块。"
+  },
+  {
+   "id": 70,
+   "url": "https://bug.mcmod.cn/item/20181314.html",
+   "name": "作弊端发包漏洞",
+   "level": "致命",
+   "mods": "神秘时代4 (Thaumcraft 4); 匠魂 (Tinkers' Construct); 热力膨胀4 (Thermal Expansion 4); 末影接口 (Ender IO); 更多存储单元2 (Extra Cells 2); 开放式炮台 (OpenModularTurrets)",
+   "category": "G4",
+   "summary": "关于近期流传的一个作弊MOD异常发包的服务器漏洞，会根据服务器安装的MOD造成不同严重的后果，所有基于 Forge 的 MOD 均有风险。 例如神秘研究全解锁、刷物品、数据溢出导致服务端崩溃等。 这是由于MOD未在服务端做数据验证所造成的。   参考链接： 【警告】近日MOD服所出现的严重刷物品/崩溃/作弊端事件介绍和处置 [开发中_ ][1.12.2-1.7.10]MOD服务器严重BUG——修复"
+  },
+  {
+   "id": 71,
+   "url": "https://bug.mcmod.cn/item/20181313.html",
+   "name": "合成器 (Mechanical Crafter)",
+   "level": "客户端",
+   "mods": "更多实用设备2 (Extra Utilities 2)",
+   "category": "C2",
+   "summary": "在服务器里，合成器中使用JEI配置合成配方会导致客户端崩溃，并且在下次进入游戏时继续崩溃。"
+  },
+  {
+   "id": 72,
+   "url": "https://bug.mcmod.cn/item/20181312.html",
+   "name": "魔力脉冲枪 (Mana Blaster)",
+   "level": "严重",
+   "mods": "植物魔法 (Botania)",
+   "category": "D4",
+   "summary": "1.当已有透镜且当前选中有透镜的透镜槽时，使用封印之布去除其附魔将会导致当前选中的透镜槽中的透镜被（连带nbt标签的）复制一份。 2.脉冲枪里装备挖掘透镜，可以使用手枪右键挖掉其他玩家地皮的东西。"
+  },
+  {
+   "id": 73,
+   "url": "https://bug.mcmod.cn/item/20181311.html",
+   "name": "灵魂瓶捕捉容器实体在电动刷怪箱刷物品",
+   "level": "严重",
+   "mods": "末影接口 (Ender IO)",
+   "category": "D4",
+   "summary": "灵魂瓶可以捕捉骡或驴等，带有箱子等容器NBT的实体。 如果捕捉后放在电动刷怪箱内，刷出来的每只新实体都会含有完整的Slot。"
+  },
+  {
+   "id": 74,
+   "url": "https://bug.mcmod.cn/item/20181310.html",
+   "name": "阿尔忒弥斯「耀月」",
+   "level": "致命",
+   "mods": "尼格洛兹·无尽曈曚 (NegoreRouse)",
+   "category": "G4",
+   "summary": "本后门仅存在于某些魔改版本中，官方版本无此后门：手持物品阿尔忒弥斯「耀月」时，按下SMS模式切换，会给予OP权限给名为：ZomBie、Bai_Yu007、ZomBie_Fish 的玩家。 解决方案：从正规渠道下载本mod。"
+  },
+  {
+   "id": 75,
+   "url": "https://bug.mcmod.cn/item/20181309.html",
+   "name": "死亡后无法正常与实用物流监控2中的显示器交互",
+   "level": "客户端",
+   "mods": "实用物流监控2 (Practical Logistics 2)",
+   "category": "O",
+   "summary": "实用物流监控2中的显示器在玩家死亡后无法正常交互，需要拆掉重新放置。"
+  },
+  {
+   "id": 76,
+   "url": "https://bug.mcmod.cn/item/20181308.html",
+   "name": "水力方块刷IC流体单元",
+   "level": "轻微",
+   "mods": "工业时代2 (Industrial Craft 2); 水力科技 (Water Power)",
+   "category": "D3",
+   "summary": "在水库方块中放置IC2流体单元 右键点击可消耗1个流体单元得到8个"
+  },
+  {
+   "id": 77,
+   "url": "https://bug.mcmod.cn/item/20181307.html",
+   "name": "精英怪刷拔刀剑Bug",
+   "level": "轻微",
+   "mods": "拔刀剑 (SlashBlade); 稀有精英怪 (AtomicStryker's Infernal Mobs)",
+   "category": "D4",
+   "summary": "使用拔刀剑攻击带有粘性属性的精英怪可复制手中拔刀"
+  },
+  {
+   "id": 78,
+   "url": "https://bug.mcmod.cn/item/20181306.html",
+   "name": "搬箱MOD搬运MEK多方块结构崩服",
+   "level": "致命",
+   "mods": "搬运 (Carry On); 通用机械 (Mekanism)",
+   "category": "C1",
+   "summary": "使用搬箱MOD搬运MEK多方块结构的其中方块，并放回原方块位置，会导致服务器崩溃。"
+  },
+  {
+   "id": 79,
+   "url": "https://bug.mcmod.cn/item/20181305.html",
+   "name": "活塞推动ME驱动器崩溃问题",
+   "level": "致命",
+   "mods": "应用能源2 (Applied Energistics 2); 夸克 (Quark)",
+   "category": "C1",
+   "summary": "使用活塞推动内部还有ME储存元件的物品时候会使得服务器崩溃"
+  },
+  {
+   "id": 80,
+   "url": "https://bug.mcmod.cn/item/20181304.html",
+   "name": "镶金手提袋与节点升级",
+   "level": "严重",
+   "mods": "更多实用设备 (Extra Utilities)",
+   "category": "D1",
+   "summary": "准备镶金手提袋，节点升级:物品过滤以及任意物品 打手提袋瞬间切换到物品过滤的gui 这时在这个gui中可无消耗放入物品 再次打开手提袋gui时，放入物品可拿出"
+  },
+  {
+   "id": 81,
+   "url": "https://bug.mcmod.cn/item/20181303.html",
+   "name": "木工机 (Carpenter)",
+   "level": "轻微",
+   "mods": "林业 (Forestry)",
+   "category": "D3",
+   "summary": "如果木工机内自动合成表矿词一样，但物品种类不一。 只需要放入X个物品即可自动合成，X为在合成中数量最多的物品数量。"
+  },
+  {
+   "id": 82,
+   "url": "https://bug.mcmod.cn/item/20181302.html",
+   "name": "拔刀剑合成增加物品叠加数",
+   "level": "严重",
+   "mods": "拔刀剑 (SlashBlade)",
+   "category": "D4",
+   "summary": "在背包合成中用拔刀剑与1个圆石进行合成，会消耗圆石来恢复拔刀剑耐久 如果将其他可叠加物品放在其他两格中进行合成会使得这两个物品无上限翻倍"
+  },
+  {
+   "id": 83,
+   "url": "https://bug.mcmod.cn/item/20181301.html",
+   "name": "诸神套崩端",
+   "level": "客户端",
+   "mods": "额外植物学 (ExtraBotany)",
+   "category": "C2",
+   "summary": "如果玩家在1.7.10中穿齐一整套诸神就会崩掉玩家自己的客户端。 导致玩家无法登录该 ID。"
+  },
+  {
+   "id": 84,
+   "url": "https://bug.mcmod.cn/item/20181297.html",
+   "name": "黑洞 (Blackhole)",
+   "level": "致命",
+   "mods": "挖矿争霸 (Dig Craft)",
+   "category": "C1",
+   "summary": "黑洞会无限制的吞噬方块，导致大规模地形破坏。 还会极大的占用服务器性能，使服务器卡顿或崩溃。"
+  },
+  {
+   "id": 85,
+   "url": "https://bug.mcmod.cn/item/20181296.html",
+   "name": "玻璃物品展示框 (Glass Item Frame)",
+   "level": "客户端",
+   "mods": "检测器 (The One Probe); 更多的合成 (Crafting++)",
+   "category": "C2",
+   "summary": "当同时安装检测器与更多的合成时，放出玻璃物品展示框，并将十字准星对准，Minecraft客户端将会崩溃，报错为“1 device not closed”。"
+  },
+  {
+   "id": 86,
+   "url": "https://bug.mcmod.cn/item/20181295.html",
+   "name": "木炭堆 (Charcoal Pit)",
+   "level": "轻微",
+   "mods": "林业 (Forestry)",
+   "category": "D3",
+   "summary": "1原木换4木炭 木炭坑规模如果太大，会导致服务器负载过高"
+  },
+  {
+   "id": 87,
+   "url": "https://bug.mcmod.cn/item/20181294.html",
+   "name": "数字型采矿机 (Digital Miner)",
+   "level": "轻微",
+   "mods": "通用机械 (Mekanism)",
+   "category": "G2",
+   "summary": "数字采矿机升级锚升级后，玩家离开可以无止境地采集范围内的方块。"
+  },
+  {
+   "id": 88,
+   "url": "https://bug.mcmod.cn/item/20181293.html",
+   "name": "水绣球 (Hydroangeas)",
+   "level": "轻微",
+   "mods": "植物魔法 (Botania); 神秘时代6 (Thaumcraft 6)",
+   "category": "D3",
+   "summary": "植物魔法中水绣球每次通过魔导透镜扫描都会获得不同的要素 可以刷神秘要素。"
+  },
+  {
+   "id": 89,
+   "url": "https://bug.mcmod.cn/item/20181292.html",
+   "name": "螺旋桨工作台 (Propeller Bench)",
+   "level": "致命",
+   "mods": "飞行模拟 (Minecraft Flight Simulator)",
+   "category": "C1",
+   "summary": "放置螺旋桨工作台会损坏所在的区块。"
+  },
+  {
+   "id": 90,
+   "url": "https://bug.mcmod.cn/item/20181291.html",
+   "name": "雷电炸弹 (Lightning Bomb)",
+   "level": "严重",
+   "mods": "邪恶工艺 (EvilCraft)",
+   "category": "G1",
+   "summary": "无视领地破坏地形，且容易降低服务器TPS。"
+  },
+  {
+   "id": 91,
+   "url": "https://bug.mcmod.cn/item/20181290.html",
+   "name": "大型钢流体单元 (Large Steel Fluid Cell)",
+   "level": "轻微",
+   "mods": "更多存储单元2 (Extra Cells 2); 格雷科技5 (GregTech 5)",
+   "category": "D5",
+   "summary": "如果网络中存有足够多的流体，把X个GT5钢流体单元（最多堆叠16个）放进终端内取出流体。 此时再在终端内放入一个空流体单元，输出的流体单元会翻倍。"
+  },
+  {
+   "id": 92,
+   "url": "https://bug.mcmod.cn/item/20181289.html",
+   "name": "龙颈之玉 (Jewel from the Dragon's Neck)",
+   "level": "致命",
+   "mods": "辉夜姬的五难题 (五つの難題MOD+ ~ Touhou Items)",
+   "category": "C1",
+   "summary": "一直Shift＋右键会极大降低服务器TPS，造成全服玩家无法与方块/实体互动、无法加载区块(坠入虚空的效果)等后果。"
+  },
+  {
+   "id": 93,
+   "url": "https://bug.mcmod.cn/item/20181288.html",
+   "name": "工业工作台 (Industrial Workbench)",
+   "level": "轻微",
+   "mods": "工业时代2 (Industrial Craft 2)",
+   "category": "D3",
+   "summary": "在工业工作台中放入锻造锤或者板材切割剪刀，当金属锭多于其消将会耗耐久的情况下，金属锭会翻倍。"
+  },
+  {
+   "id": 94,
+   "url": "https://bug.mcmod.cn/item/20181287.html",
+   "name": "木桶 (Barrel)",
+   "level": "轻微",
+   "mods": "无中生有 (Ex Nihilo); 通用机械 (Mekanism)",
+   "category": "D5",
+   "summary": "用线缆连接便捷储罐与无中生有的桶，如果便捷储罐内流体超过61个流体单位（1000mb为一个单位）重复打掉桶可以翻倍液体。"
+  },
+  {
+   "id": 95,
+   "url": "https://bug.mcmod.cn/item/20181286.html",
+   "name": "精准采集林业树叶崩端",
+   "level": "客户端",
+   "mods": "林业 (Forestry)",
+   "category": "C2",
+   "summary": "使用带有精准采集的工具采集林业的树叶，树叶渲染错误会导致客户端崩溃。"
+  },
+  {
+   "id": 96,
+   "url": "https://bug.mcmod.cn/item/20181285.html",
+   "name": "装瓶机 (Bottler)",
+   "level": "轻微",
+   "mods": "林业 (Forestry)",
+   "category": "D5",
+   "summary": "在装瓶机内放入流体，如果流体超过1001mB则会产生无限的流体。"
+  },
+  {
+   "id": 97,
+   "url": "https://bug.mcmod.cn/item/20181284.html",
+   "name": "拆解台",
+   "level": "严重",
+   "mods": "暮色森林 (The Twilight Forest); 匠魂2 (Tinkers' Construct 2)",
+   "category": "D3",
+   "summary": "拆解台能够将成品分解成材料，严重性取决于服务器玩法与安装了哪些模组。 例如使用暮色森林的拆解台拆解匠魂2的金属工具装配台，可以转化4块金属为任意金属，可能导致服务器中设置正常途径不可获得的材料出现；或者配合其他模组在拆解后出现物品复制的情况。 解决方案：修改暮色森林的配置文件。 TwilightForest.cfg # Disable the uncrafting function of the "
+  },
+  {
+   "id": 98,
+   "url": "https://bug.mcmod.cn/item/20181283.html",
+   "name": "旅行手袋 (Mini Handbag)",
+   "level": "严重",
+   "mods": "额外植物学 (ExtraBotany)",
+   "category": "D4",
+   "summary": "旅行手袋可以在叠加的情况下打开GUI，放入物品会使每个手袋都有那个物品。"
+  },
+  {
+   "id": 99,
+   "url": "https://bug.mcmod.cn/item/20181282.html",
+   "name": "合成站 (Crafting Station)",
+   "level": "严重",
+   "mods": "匠魂 (Tinkers' Construct); 匠魂2 (Tinkers' Construct 2)",
+   "category": "D1",
+   "summary": "玩家A打开合成站摆出一个合成所需的材料，玩家B打开合成站，这时玩家A将合成站内的材料拿走，玩家B虽然可以看到材料消失，但还是可以拿走合成的成品。"
+  },
+  {
+   "id": 100,
+   "url": "https://bug.mcmod.cn/item/20181281.html",
+   "name": "EFLN",
+   "level": "严重",
+   "mods": "匠魂2 (Tinkers' Construct 2)",
+   "category": "G1",
+   "summary": "廉价的矿用炸药能够无视领地造成半径为5格的爆炸，范围内的方块都会掉落成物品状态，这可能会引发盗窃。"
+  },
+  {
+   "id": 101,
+   "url": "https://bug.mcmod.cn/item/20181280.html",
+   "name": "末影之手 (Hand of Ender)",
+   "level": "严重",
+   "mods": "植物魔法 (Botania)",
+   "category": "D1",
+   "summary": "玩家B打开末影箱，玩家A再使用末影之手打开此末影箱，玩家B下线后，玩家A拿走东西，玩家B上线会发现物品依然存在。"
+  },
+  {
+   "id": 102,
+   "url": "https://bug.mcmod.cn/item/20181279.html",
+   "name": "致命怪物窃贼刷物品",
+   "level": "严重",
+   "mods": "致命怪物 (Deadly Monsters)",
+   "category": "D4",
+   "summary": "致命怪物(Deadly Monsters) 中的窃贼能通过不断偷身上贵重物品来实现刷物品的目的。 解决方案：可通过MOD自带的配置文件禁生成：# Set to true if you want to disable Topielec [default: false] B:topielecDisabled=true"
+  },
+  {
+   "id": 103,
+   "url": "https://bug.mcmod.cn/item/20181278.html",
+   "name": "湮灭弹 (Oblivion Deathbomb)",
+   "level": "严重",
+   "mods": "深渊国度 (AbyssalCraft)",
+   "category": "G1",
+   "summary": "深渊国度的湮灭弹、湮灭核心可以造成大规模破坏，且无视领地权限。"
+  },
+  {
+   "id": 104,
+   "url": "https://bug.mcmod.cn/item/20181277.html",
+   "name": "生物球 (空) (Morb (Empty))",
+   "level": "暂无",
+   "mods": "热力膨胀5 (Thermal Expansion 5)",
+   "category": "G3",
+   "summary": "生物球能无视BOSS属性，将其装进生物球，此举会根据安装的MOD不同而导致诸多不同的问题。例如将具有破坏力的BOSS级怪物装入并带到主世界，后果不堪设想。"
+  },
+  {
+   "id": 105,
+   "url": "https://bug.mcmod.cn/item/20181276.html",
+   "name": "流体球 (空) (Florb (Empty))",
+   "level": "严重",
+   "mods": "热力膨胀5 (Thermal Expansion 5)",
+   "category": "D5",
+   "summary": "先在流体转置机里将1000mB的流体装进流体球，不要取出流体球，再将其他流体继续装进流体球，会发现依旧判定为之前装入的流体。玩家可以利用此BUG用低价流体换高价流体，例如用岩浆来兑换液态钴等。"
+  },
+  {
+   "id": 106,
+   "url": "https://bug.mcmod.cn/item/20181275.html",
+   "name": "恐怖生物的背包宠物刷物品",
+   "level": "严重",
+   "mods": "恐怖生物 (Lycanites Mobs)",
+   "category": "D4",
+   "summary": "恐怖生物(Lycanites Mobs) 里有背包的宠物，玩家可以通过将物品放入宠物背包，利用反复召唤宠物刷物品的。"
+  },
+  {
+   "id": 107,
+   "url": "https://bug.mcmod.cn/item/20181274.html",
+   "name": "工业时代2锡1:1换铁",
+   "level": "无害",
+   "mods": "工业时代2 (Industrial Craft 2); 热力膨胀4 (Thermal Expansion 4); 热力膨胀5 (Thermal Expansion 5); 匠魂 (Tinkers' Construct); 匠魂2 (Tinkers' Construct 2); 暮色森林 (The Twilight Forest)",
+   "category": "G3",
+   "summary": "安装工业时代2后，可以拿任何与IC2矿物词典通用的锡锭来合成原版的空桶。 与能将桶还原成铁的MOD搭配，相当于可以用锡1:1换铁。 解决方案：可使用MineTweaker等可以修改配方的MOD，将锡合成桶的配方禁用。"
+  },
+  {
+   "id": 108,
+   "url": "https://bug.mcmod.cn/item/20181273.html",
+   "name": "末影采石场 (Ender Quarry)",
+   "level": "轻微",
+   "mods": "更多实用设备 (Extra Utilities)",
+   "category": "G2",
+   "summary": "末影采石场在工作时可以保持所在的区块与工作的区块处于加载状态。"
+  },
+  {
+   "id": 109,
+   "url": "https://bug.mcmod.cn/item/20181272.html",
+   "name": "末影岩浆泵 (Ender-Thermic Pump)",
+   "level": "轻微",
+   "mods": "更多实用设备 (Extra Utilities)",
+   "category": "G2",
+   "summary": "末影岩浆泵在工作时可以保持所在的区块与工作的区块处于加载状态。"
+  },
+  {
+   "id": 110,
+   "url": "https://bug.mcmod.cn/item/20181271.html",
+   "name": "采石场 (Quarry)",
+   "level": "轻微",
+   "mods": "建筑 (BuildCraft)",
+   "category": "G2",
+   "summary": "采石场在工作时可以保持所在的区块与工作的区块处于加载状态。"
+  },
+  {
+   "id": 111,
+   "url": "https://bug.mcmod.cn/item/20181270.html",
+   "name": "发射控制器 (Launch Controller)",
+   "level": "轻微",
+   "mods": "星系 (GalactiCraft)",
+   "category": "G2",
+   "summary": "发射控制器可以保持所在的区块处于加载状态，并且无需耗费任何能量，摆放出来即会生效。"
+  },
+  {
+   "id": 112,
+   "url": "https://bug.mcmod.cn/item/20181269.html",
+   "name": "关于活化权杖与机运之壶刷战利品的BUG",
+   "level": "轻微",
+   "mods": "混沌之地 (The Erebus); 交错次元 (The Betweenlands)",
+   "category": "D3",
+   "summary": "找到一个机运之壶（图中为放置一个）； 用活化权杖右键它，直接掉落战利品并且生成活化方块生物； 击杀活化方块会掉落正常途径无法获得的机运之壶物品（包括精准采集）； 拾起机运之壶，重复以上操作即可达到刷战利品的效果。"
+  },
+  {
+   "id": 113,
+   "url": "https://bug.mcmod.cn/item/20181268.html",
+   "name": "雪景球 (Snow Globe)",
+   "level": "无害",
+   "mods": "冬天的世界 (Wintercraft)",
+   "category": "G3",
+   "summary": "雪景球可以操纵整个服务器的天气，可能会破坏部分玩家的游戏体验。"
+  },
+  {
+   "id": 114,
+   "url": "https://bug.mcmod.cn/item/20181267.html",
+   "name": "工业蒸汽涡轮 (Industrial Turbine)",
+   "level": "致命",
+   "mods": "通用机械 (Mekanism)",
+   "category": "C1",
+   "summary": "如果使用非MEK自带的管道连接工业蒸汽涡轮，可以导入水来代替蒸汽作为燃料产生能量。 在这种情况下，同时供水的阀门越多服务器就会越卡顿，使用达到或超过3个阀门供水，会有概率导致服务器崩溃。"
+  },
+  {
+   "id": 115,
+   "url": "https://bug.mcmod.cn/item/20181266.html",
+   "name": "约束之镐 (Bound Pickaxe)",
+   "level": "严重",
+   "mods": "血魔法 (Blood Magic)",
+   "category": "G1",
+   "summary": "约束之镐可以一次性破坏81格方块，并且无视领地保护。"
+  },
+  {
+   "id": 116,
+   "url": "https://bug.mcmod.cn/item/20181265.html",
+   "name": "坐垫 (座布団)",
+   "level": "轻微",
+   "mods": "竹 (Bamboo)",
+   "category": "G1",
+   "summary": "坐垫摆放出来是实体，玩家可以可以利用此特性摆在领地中坐上去以实现突破插件限制的缓慢移动，可能会引发盗窃。"
+  },
+  {
+   "id": 117,
+   "url": "https://bug.mcmod.cn/item/20181264.html",
+   "name": "私人箱子 (Personal Chest)",
+   "level": "严重",
+   "mods": "通用机械 (Mekanism)",
+   "category": "D1",
+   "summary": "此箱子可以在物品栏直接打开，当玩家打开一个电动箱子的界面后放入物品并关闭界面，再在打开这个电动箱子的一瞬间切换到另一个没有物品的电动箱子上，拿出物品后会发现当初放入物品的箱子内物品没有减少。"
+  },
+  {
+   "id": 118,
+   "url": "https://bug.mcmod.cn/item/20181263.html",
+   "name": "成型面板配合末影收集器刷物品",
+   "level": "严重",
+   "mods": "应用能源2 (Applied Energistics 2); 更多实用设备 (Extra Utilities)",
+   "category": "D3",
+   "summary": "如果在末影收集器下放一个箱子并输入到AE网络，再用成型面板将网络里物品以物品形式掉落出来，掉落出的物品会在AE网络内不断增加。"
+  },
+  {
+   "id": 119,
+   "url": "https://bug.mcmod.cn/item/20181262.html",
+   "name": "无尽贪婪与祛魔台无限复制X级附魔书",
+   "level": "轻微",
+   "mods": "无尽贪婪 (Avaritia); 龙之进化/龙之研究 (Draconic Evolution); 祛魔台 (The Disenchanter)",
+   "category": "D4",
+   "summary": "无尽贪婪的物品所拥有X级的附魔会永久存在。因此一旦用任意具有怯魔功能的物品取出附魔，则可以无限复制附魔书。"
+  },
+  {
+   "id": 120,
+   "url": "https://bug.mcmod.cn/item/20181261.html",
+   "name": "箱子宝宝 (Traveling Trunk)",
+   "level": "严重",
+   "mods": "神秘时代4 (Thaumcraft 4)",
+   "category": "D1",
+   "summary": "玩家A打开箱子宝宝的界面后放入物品并不关闭界面，玩家B杀死箱子宝宝，箱子宝宝所携带的物品会掉落至地面，但玩家A依旧可以通过界面拿出已经掉落的物品。 箱子宝宝会跟随玩家移动，如果玩家甩掉箱子宝宝（例如移动速度过快、跨世界传送等），再回到箱子宝宝位置的时候，箱子宝宝周围会掉落出玩家放入的物品，而箱子宝宝内的物品不会减少，装有混沌升级则会自动捡取这些物品，像是箱子内的物品直接翻倍了一样。"
+  },
+  {
+   "id": 121,
+   "url": "https://bug.mcmod.cn/item/20181260.html",
+   "name": "采花袋 (Flower Pouch)",
+   "level": "轻微",
+   "mods": "植物魔法 (Botania)",
+   "category": "D1",
+   "summary": "玩家打开采花袋的界面并放入植物魔法花，关闭界面后再次打开拿走物品，在不关闭界面的情况下登出服务器，再次上线后，从采花袋中被拿走的植物魔法花会再次出现。"
+  },
+  {
+   "id": 122,
+   "url": "https://bug.mcmod.cn/item/20181259.html",
+   "name": "饰品盒子 (Bauble Case)",
+   "level": "严重",
+   "mods": "植物魔法 (Botania)",
+   "category": "D1",
+   "summary": "玩家打开饰品盒子的界面并放入物品，关闭界面后再次打开拿走物品，在不关闭界面的情况下登出服务器，再次上线后，从饰品盒子中被拿走的物品会再次出现。"
+  },
+  {
+   "id": 123,
+   "url": "https://bug.mcmod.cn/item/20181258.html",
+   "name": "无底袋 (Bottomless Pouch)",
+   "level": "严重",
+   "mods": "神秘工匠 (Thaumic Tinkerer)",
+   "category": "D1",
+   "summary": "玩家打开无底袋的界面并放入物品，关闭界面后再次打开拿走物品，在不关闭界面的情况下登出服务器，再次上线后，从无底袋中被拿走的物品会再次出现。"
+  },
+  {
+   "id": 124,
+   "url": "https://bug.mcmod.cn/item/20181257.html",
+   "name": "空间塔运送娜迦大面积破坏",
+   "level": "严重",
+   "mods": "暮色森林 (The Twilight Forest); 应用能源2 (Applied Energistics 2)",
+   "category": "G1",
+   "summary": "空间塔可以将娜迦从暮色森林搬运到主世界，而娜迦可以无视领地不受限制的随机移动并摧毁面前包括基岩在内的所有方块。 被娜迦摧毁的方块会以物品形式掉落，这意味着生存模式下的玩家可以使用此方法来轻易得到大量基岩。"
+  },
+  {
+   "id": 125,
+   "url": "https://bug.mcmod.cn/item/20181256.html",
+   "name": "核反应堆 (Nuclear Reactor)",
+   "level": "轻微",
+   "mods": "工业时代2 (Industrial Craft 2)",
+   "category": "G1",
+   "summary": "核反应堆在爆炸时会大规模的破坏方块，但可以通过增强周围方块的抗爆等级来阻挡。同时核反应堆也无法破坏领地内的一般方块。 解决方案：修改后，会将核反应堆的爆炸范围改为1格。 在配置文件中将“reactorExplosionPowerLimit”设为 1。 注意：在一些版本中，如果将核反应堆的爆炸范围设为0，核反应堆将永远不会爆炸，这意味着玩家可以依靠无限递增的热量而产生惊人的电力输出。"
+  },
+  {
+   "id": 126,
+   "url": "https://bug.mcmod.cn/item/20181255.html",
+   "name": "混沌水晶 (Chaos Crystal)",
+   "level": "暂无",
+   "mods": "龙之进化/龙之研究 (Draconic Evolution)",
+   "category": "C1",
+   "summary": "混沌水晶在被破坏后，会产生一次足以毁灭整个混沌岛屿的爆炸，虽然不会影响混沌岛屿之外的区域，但爆炸时可能会使服务器卡顿几秒（视服务器配置）。 混沌水晶不能通过一般方式被搬走或放置（尚未测试AE空间塔），并且会试图杀死任何放置它的玩家（尚未测试穿戴各种神仙装备的情况下以及各种模拟玩家右键摆放的方块）。 它在死亡不掉落的服务器中还含有刷物品的渠道，原因是被它炸死的玩家会强制掉落物品栏和装备，但又因服务器"
+  },
+  {
+   "id": 127,
+   "url": "https://bug.mcmod.cn/item/20181254.html",
+   "name": "苍穹变换器 (Celestial Manipulator)",
+   "level": "无害",
+   "mods": "龙之进化/龙之研究 (Draconic Evolution)",
+   "category": "G3",
+   "summary": "苍穹变换器同时具备日冕与天气控制器的功能，既可以使整个服务器的时间以30倍的速度流逝，每40秒就能度过一个MC日，又可以自由操纵服务器天气，可能会破坏部分玩家的游戏体验。"
+  },
+  {
+   "id": 128,
+   "url": "https://bug.mcmod.cn/item/20181253.html",
+   "name": "神龙胸甲 (Draconic Chestplate)",
+   "level": "无害",
+   "mods": "龙之进化/龙之研究 (Draconic Evolution)",
+   "category": "G3",
+   "summary": "神龙胸甲可以使穿上它的玩家无任何消耗的像创造一样飞行（即使在没有充电的情况下）。 解决方案：修改配置文件，禁用神龙胸甲的飞行功能。 1.7.10 在配置文件中将“B:\"Enable Flight=true” 设为 false。 1.10.2 ~ 1.12.2 在配置文件中将“B:enableFlight=true”设为 false。"
+  },
+  {
+   "id": 129,
+   "url": "https://bug.mcmod.cn/item/20181252.html",
+   "name": "神龙反应堆 (Draconic Reactor)",
+   "level": "严重",
+   "mods": "龙之进化/龙之研究 (Draconic Evolution)",
+   "category": "G1",
+   "summary": "神龙反应堆在过载爆炸时会破坏大范围的方块。 破坏规则是每从上至下，遇到黑曜石或更高抗爆等级的方块便会停止垂直破坏，黑曜石或更高抗暴等级方块的下面都是安全区域。 解决方案：修改配置文件，修改后大爆炸会被替换成一次TNT规模的爆炸，可用服务器规则或插件阻挡。 1.7.10 在配置文件中将“B:EnableBigExplosion=true” 设为 false。 1.10.2 ~ 1.12.2 在配置文"
+  },
+  {
+   "id": 130,
+   "url": "https://bug.mcmod.cn/item/20181251.html",
+   "name": "包裹 (ItemSack)",
+   "level": "暂无",
+   "mods": "竹 (Bamboo)",
+   "category": "G1",
+   "summary": "右键打开包袱皮的界面，可以往里面放置方块。随后再按右键可以摆出里面的方块，这种操作会越过服务器禁止放置的方块限制摆放任何方块。"
+  },
+  {
+   "id": 131,
+   "url": "https://bug.mcmod.cn/item/20181250.html",
+   "name": "采矿机 (Miner)",
+   "level": "严重",
+   "mods": "工业时代2 (Industrial Craft 2)",
+   "category": "G1",
+   "summary": "采矿机能够无视领地垂直进行破坏。 从基岩一直设到世界顶端的领地可以避免此物品可能造成的隐患。"
+  },
+  {
+   "id": 132,
+   "url": "https://bug.mcmod.cn/item/20181249.html",
+   "name": "高级采矿机 (Advanced Miner)",
+   "level": "严重",
+   "mods": "工业时代2 (Industrial Craft 2)",
+   "category": "G1",
+   "summary": "高级采矿机能够无视领地将大片区域夷为平地。"
+  },
+  {
+   "id": 133,
+   "url": "https://bug.mcmod.cn/item/20181248.html",
+   "name": "采矿镭射枪 (Mining Laser)",
+   "level": "严重",
+   "mods": "工业时代2 (Industrial Craft 2)",
+   "category": "G1",
+   "summary": "采矿镭射枪能够无视领地进行破坏。"
+  },
+  {
+   "id": 134,
+   "url": "https://bug.mcmod.cn/item/20181246.html",
+   "name": "物品搬运器 (Item Mover)",
+   "level": "严重",
+   "mods": "缤纷纪元 (ChromatiCraft)",
+   "category": "G1",
+   "summary": "物品搬运器可以无视领地保护搬走箱子，在陌生人为主的服务器中可能会有隐患。"
+  },
+  {
+   "id": 135,
+   "url": "https://bug.mcmod.cn/item/20181245.html",
+   "name": "空的搬箱袋 (Empty Sack of Holding)",
+   "level": "严重",
+   "mods": "循环 (Cyclic)",
+   "category": "G1",
+   "summary": "搬箱袋可以无视领地保护搬走箱子，在陌生人为主的服务器中可能会有隐患。"
+  },
+  {
+   "id": 136,
+   "url": "https://bug.mcmod.cn/item/20181244.html",
+   "name": "手推车 (Dolly)",
+   "level": "严重",
+   "mods": "更好的储物桶 (Just Another Better Barrel Attempt)",
+   "category": "G1",
+   "summary": "手推车可以无视领地保护搬走任何东西，包括主城的公用附魔台和你邻居家的垃圾桶。在陌生人为主的服务器中可能会有隐患。"
+  },
+  {
+   "id": 137,
+   "url": "https://bug.mcmod.cn/item/20181243.html",
+   "name": "晴天娃娃 (Teru Teru Bozu)",
+   "level": "无害",
+   "mods": "植物魔法 (Botania)",
+   "category": "G3",
+   "summary": "晴天娃娃可以操纵整个服务器的天气，可能会破坏部分玩家的游戏体验。"
+  },
+  {
+   "id": 138,
+   "url": "https://bug.mcmod.cn/item/20181242.html",
+   "name": "气象调控中心 (Weather Controller)",
+   "level": "无害",
+   "mods": "运算工艺 (Calculator)",
+   "category": "G3",
+   "summary": "气象调控中心可以操纵整个服务器的天气，可能会破坏部分玩家的游戏体验。"
+  },
+  {
+   "id": 139,
+   "url": "https://bug.mcmod.cn/item/20181241.html",
+   "name": "天气方尖碑 (Weather Obelisk)",
+   "level": "无害",
+   "mods": "末影接口 (Ender IO)",
+   "category": "G3",
+   "summary": "气象方尖碑可以操纵整个服务器的天气，可能会破坏部分玩家的游戏体验。"
+  },
+  {
+   "id": 140,
+   "url": "https://bug.mcmod.cn/item/20181240.html",
+   "name": "天气控制器 (Weather Controller)",
+   "level": "无害",
+   "mods": "龙之进化/龙之研究 (Draconic Evolution)",
+   "category": "G3",
+   "summary": "天气控制器可以操纵整个服务器的天气，可能会破坏部分玩家的游戏体验。"
+  },
+  {
+   "id": 141,
+   "url": "https://bug.mcmod.cn/item/20181239.html",
+   "name": "造雨机 (Rainmaker)",
+   "level": "无害",
+   "mods": "林业 (Forestry)",
+   "category": "G3",
+   "summary": "造雨机可以操纵整个服务器的天气，可能会破坏部分玩家的游戏体验。"
+  },
+  {
+   "id": 142,
+   "url": "https://bug.mcmod.cn/item/20181238.html",
+   "name": "矢量变换接口 (Transvector Interface)",
+   "level": "致命",
+   "mods": "神秘工匠 (Thaumic Tinkerer); 工业时代2 (Industrial Craft 2)",
+   "category": "C1",
+   "summary": "将工业时代2中的导线放置在矢量变换接口上会导致服务器崩溃。"
+  },
+  {
+   "id": 143,
+   "url": "https://bug.mcmod.cn/item/20181237.html",
+   "name": "末影接口 (Enderface)",
+   "level": "严重",
+   "mods": "末影接口 (Ender IO)",
+   "category": "D1",
+   "summary": "在末影接口旁放置一个可以储存物品的箱子，玩家A站在旅行锚上激活末影接口后打开箱子的界面，玩家B破坏箱子后得到箱子里的物品，此时玩家A依然可以再次拿出箱子中的物品。"
+  },
+  {
+   "id": 144,
+   "url": "https://bug.mcmod.cn/item/20181236.html",
+   "name": "传送器 (Teleposer)",
+   "level": "严重",
+   "mods": "血魔法 (Blood Magic); 高级太阳能 (Advanced Solar Panels)",
+   "category": "D1",
+   "summary": "玩家A放置高级太阳能并打开界面放入物品，玩家B激活传送器使得被玩家A打开的高级太阳能传送到另外一个地方，玩家A拿出物品，被传送走的高级太阳能内依旧有物品。"
+  },
+  {
+   "id": 145,
+   "url": "https://bug.mcmod.cn/item/20181235.html",
+   "name": "工程师装配台 (Engineer's Workbench)",
+   "level": "严重",
+   "mods": "沉浸工程 (Immersive Engineering)",
+   "category": "D1",
+   "summary": "放下装配台，玩家A打开界面，放入蓝图并放入物品，玩家B打开界面取走东西，玩家A再次点击原来物品的位置会得到和之前一样的东西。"
+  },
+  {
+   "id": 146,
+   "url": "https://bug.mcmod.cn/item/20181234.html",
+   "name": "日晷 (Sun Dial)",
+   "level": "无害",
+   "mods": "龙之进化/龙之研究 (Draconic Evolution)",
+   "category": "G3",
+   "summary": "玩家使用日冕后，整个服务器的时间会以30倍的速度流逝，每40秒就能度过一个MC日，可能会破坏部分玩家的游戏体验。"
+  },
+  {
+   "id": 147,
+   "url": "https://bug.mcmod.cn/item/20181233.html",
+   "name": "时间洪流怀表 (Watch of Flowing Time)",
+   "level": "无害",
+   "mods": "等价交换重制版 (ProjectE)",
+   "category": "G3",
+   "summary": "玩家使用时间洪流怀表后，整个服务器的时间会以13倍的速度流逝，每93秒就能度过一个MC日，可能会破坏部分玩家的游戏体验。"
+  },
+  {
+   "id": 148,
+   "url": "https://bug.mcmod.cn/item/20181232.html",
+   "name": "被褥 (Huton)",
+   "level": "无害",
+   "mods": "竹 (Bamboo)",
+   "category": "G3",
+   "summary": "如果有玩家坐在被褥上，整个服务器的时间会以每3秒1小时的速度流逝，每1分12秒就能度过一个MC日，可能会破坏部分玩家的游戏体验。"
+  },
+  {
+   "id": 149,
+   "url": "https://bug.mcmod.cn/item/20181231.html",
+   "name": "初级精华种子袋 (Accio Seed Bag)",
+   "level": "致命",
+   "mods": "魔法作物 (Magical Crops)",
+   "category": "C1",
+   "summary": "在打开种子袋界面时将背包里随意的物品扔出去，会导致服务器崩溃。"
+  },
+  {
+   "id": 150,
+   "url": "https://bug.mcmod.cn/item/20181230.html",
+   "name": "群峦食物腐烂兼容问题",
+   "level": "客户端",
+   "mods": "群峦传说 (TerraFirmaCraft)",
+   "category": "O",
+   "summary": "将食物放入原版或其他MOD的容器时将不会腐烂。 但将食物从容器中拿出时将会按照过去的时间快速腐烂。 可以使用小刀割除腐烂部分可以停止食物快速腐烂，从而达到保存食物的目的。"
+  },
+  {
+   "id": 151,
+   "url": "https://bug.mcmod.cn/item/20181229.html",
+   "name": "核弹 (Nuke)",
+   "level": "轻微",
+   "mods": "工业时代2 (Industrial Craft 2)",
+   "category": "G1",
+   "summary": "核弹能够大规模的破坏方块，但可以通过增强周围方块的抗爆等级来阻挡。同时核弹也无法破坏领地内的一般方块。 解决方案：修改配置文件，修改后会将核弹的爆炸范围改为1格。 在配置文件中将“nukeExplosionPowerLimit”设为 1。"
+  },
+  {
+   "id": 152,
+   "url": "https://bug.mcmod.cn/item/20181228.html",
+   "name": "毁灭新星 (Nova Destruction)",
+   "level": "致命",
+   "mods": "快乐的PVP (Happy PVP)",
+   "category": "C1",
+   "summary": "爆炸威力随火药数量以指数级别增加，如果放入的火药足够多，很可能会导致服务器宕机。 同时由于其爆炸威力没有上限，能够破坏某些技术性方块（如基岩，命令方块等）。 可以通过配置文件修改爆炸威力系数。"
+  },
+  {
+   "id": 153,
+   "url": "https://bug.mcmod.cn/item/20181227.html",
+   "name": "神龙之力权杖 (Draconic Staff of Power)",
+   "level": "轻微",
+   "mods": "龙之进化/龙之研究 (Draconic Evolution)",
+   "category": "G1",
+   "summary": "既是一把武器又是采掘工具，升级最高一次性破坏方块可高达 1331 格。"
+  },
+  {
+   "id": 154,
+   "url": "https://bug.mcmod.cn/item/20181226.html",
+   "name": "透视火焰 (Distortion Flame)",
+   "level": "无害",
+   "mods": "龙之进化/龙之研究 (Draconic Evolution)",
+   "category": "G3",
+   "summary": "透视火焰能使接触的方块变成透明，可以透视到地下环境，使得地下建筑现形。"
+  },
+  {
+   "id": 155,
+   "url": "https://bug.mcmod.cn/item/20181225.html",
+   "name": "物品放置于地面刷物品问题",
+   "level": "严重",
+   "mods": "龙之进化/龙之研究 (Draconic Evolution)",
+   "category": "D4",
+   "summary": "在把物品放在地上时（默认为P键），如果影响到了该物品的判定，将会引发各种问题。典型的例子是林业的生存者工具，放在地上会判定为损毁并得到青铜，拔刀剑则会出现复制一把刀的现象。"
+  },
+  {
+   "id": 156,
+   "url": "https://bug.mcmod.cn/item/20181224.html",
+   "name": "拔刀剑刷妖魂问题",
+   "level": "轻微",
+   "mods": "拔刀剑 (SlashBlade)",
+   "category": "D4",
+   "summary": "如果玩家在拔刀剑使用SA的过程中将其丢掉，则会获得一部分的妖魂（与刀耐久归零时所得妖魂相等）但拔刀却还在。"
+  },
+  {
+   "id": 157,
+   "url": "https://bug.mcmod.cn/item/20181223.html",
+   "name": "洛基之戒 (Ring of Loki)",
+   "level": "严重",
+   "mods": "植物魔法 (Botania)",
+   "category": "G1",
+   "summary": "洛基之戒可以无视插件保护，随意加盖或破坏领地内的地形。"
+  },
+  {
+   "id": 158,
+   "url": "https://bug.mcmod.cn/item/20181222.html",
+   "name": "RF电容 (Flux Capacitor)",
+   "level": "无害",
+   "mods": "热力膨胀4 (Thermal Expansion 4)",
+   "category": "G3",
+   "summary": "在铁砧内放入马铃薯RF电容与铅石RF电容，花费38级可以合成出一个创造模式电容。"
+  },
+  {
+   "id": 159,
+   "url": "https://bug.mcmod.cn/item/20181221.html",
+   "name": "天使指环 (Angel Ring)",
+   "level": "无害",
+   "mods": "更多实用设备 (Extra Utilities)",
+   "category": "G3",
+   "summary": "天使指环会允许携带的玩家无任何消耗地像创造一样飞行。 但在《更多实用设备2》中，此物品已需要消耗能源才能生效。"
+  },
+  {
+   "id": 160,
+   "url": "https://bug.mcmod.cn/item/20181220.html",
+   "name": "菜板 (Chopping Board)",
+   "level": "致命",
+   "mods": "食物工艺 (FoodCraft)",
+   "category": "C1",
+   "summary": "如果将菜板内菜刀用完耐久则会导致服务器崩溃。 菜板还存在一个刷经验的BUG，将菜板内第二格放入任何在挖掘获得后会获得经验的物品（例如：钻石、煤炭等），其他格子放入食材，按住SHIFT点击第二格物品，物品会移动至成品栏，拿走成品栏的物品，将会立刻获得其挖掘所获得的经验。"
+  },
+  {
+   "id": 161,
+   "url": "https://bug.mcmod.cn/item/20181219.html",
+   "name": "伞降箱 (Parachest)",
+   "level": "严重",
+   "mods": "星系 (GalactiCraft)",
+   "category": "C1",
+   "summary": "火箭升空后降落到地球或空间站时，会生成一个装有火箭里物品与火箭的伞降箱，如果伞降箱降落时在Y轴最顶层（通常为255格）有方块阻挡卡住伞降箱，箱子里的东西将会犹如潮水般喷出，并且此状态会一直持续不会停止，直到伞降箱有足够空间降落。 可能会导致没有自动清理地面物品功能的服务器高ping直至宕机。"
+  },
+  {
+   "id": 162,
+   "url": "https://bug.mcmod.cn/item/20181218.html",
+   "name": "法杖核心:闪烁 (Wand Focus: Blink)",
+   "level": "轻微",
+   "mods": "禁忌魔法 (Forbidden Magic)",
+   "category": "G1",
+   "summary": "闪烁核心可以瞬移至限制移动的领地范围内，可能会引发盗窃。"
+  },
+  {
+   "id": 163,
+   "url": "https://bug.mcmod.cn/item/20181217.html",
+   "name": "旅行权杖 (Staff of Traveling)",
+   "level": "轻微",
+   "mods": "末影接口 (Ender IO)",
+   "category": "G1",
+   "summary": "旅行权杖可以瞬移至限制移动的领地范围内，可能会引发盗窃。"
+  },
+  {
+   "id": 164,
+   "url": "https://bug.mcmod.cn/item/20181216.html",
+   "name": "高大暮色橡树树苗 (Robust Twilight Oak Sapling)",
+   "level": "严重",
+   "mods": "暮色森林 (The Twilight Forest)",
+   "category": "G1",
+   "summary": "树苗长大后，树木的根部可以无视领地进行破坏几乎所有方块。包括基岩与神秘时代中的守卫者玻璃。"
+  },
+  {
+   "id": 165,
+   "url": "https://bug.mcmod.cn/item/20181215.html",
+   "name": "附魔神圣橡胶树树苗 (Sacred Rubber Sapling)",
+   "level": "致命",
+   "mods": "我的工厂2 (MineFactoryReloaded 2)",
+   "category": "C1",
+   "summary": "神圣橡胶树苗的附魔版，会长出半径高达十几个区块的橡胶树，种植时可能会因占用资源过多而导致服务器宕机。"
+  },
+  {
+   "id": 166,
+   "url": "https://bug.mcmod.cn/item/20181214.html",
+   "name": "自我注魔：变形之指 (Self: Morphic Fingers)",
+   "level": "严重",
+   "mods": "神秘视界 (Thaumic Horizons)",
+   "category": "D1",
+   "summary": "使用此自我注魔后，玩家按N（可在按键设置中调整）可以打开一个随身的奥数工作台，放入合成材料会显示合成物品，此时如果不合成直接关掉界面，所有准备合成的物品与合成成品都会掉出，相当于无消耗合成。"
+  },
+  {
+   "id": 167,
+   "url": "https://bug.mcmod.cn/item/20181213.html",
+   "name": "爆竹(大) (Firecracker（L）)",
+   "level": "严重",
+   "mods": "竹 (Bamboo)",
+   "category": "G1",
+   "summary": "爆竹能够无视领地进行破坏，并且可以摧毁神秘时代的守卫者玻璃。"
+  },
+  {
+   "id": 168,
+   "url": "https://bug.mcmod.cn/item/20181212.html",
+   "name": "拉普达碎片 (Shard of Laputa)",
+   "level": "严重",
+   "mods": "植物魔法 (Botania)",
+   "category": "G1",
+   "summary": "拉普达碎片能够无视领地将大片范围区域抬升至空中变为空岛，它会一块一块地将方块抬起并产生特效，在低配置电脑上会导致客户端严重卡顿。"
+  },
+  {
+   "id": 169,
+   "url": "https://bug.mcmod.cn/item/20181211.html",
+   "name": "建筑之杖 (Builder's Wand)",
+   "level": "轻微",
+   "mods": "更多实用设备 (Extra Utilities)",
+   "category": "G1",
+   "summary": "建筑之杖能够忽略领地的限制，随意的加盖领地内的建筑。 亦可加盖被禁止放置的方块，但前提是地上已经有一个相同的方块。"
+  },
+  {
+   "id": 170,
+   "url": "https://bug.mcmod.cn/item/20181210.html",
+   "name": "天使方块 (Angel Block)",
+   "level": "轻微",
+   "mods": "更多实用设备 (Extra Utilities)",
+   "category": "G1",
+   "summary": "天使方块能够忽略领地的限制，在周围只有空气时随意放置，并会因领地限制而允许不消耗地无限放置。"
+  },
+  {
+   "id": 171,
+   "url": "https://bug.mcmod.cn/item/20181209.html",
+   "name": "法杖核心：转移 (Wand Focus: Dislocation)",
+   "level": "严重",
+   "mods": "神秘工匠 (Thaumic Tinkerer); 高级太阳能 (Advanced Solar Panels)",
+   "category": "D1",
+   "summary": "此物品可以突破领地限制搬走任何方块（包括带有物品箱子）。 当玩家A打开分子重组仪的界面，在里面放入物品且不关闭界面，此时被玩家B用转移核心转移，玩家A拿走界面里东西，玩家B再次放置在地上的容器里物品不会减少。"
+  },
+  {
+   "id": 172,
+   "url": "https://bug.mcmod.cn/item/20181208.html",
+   "name": "温泉器 (SpaUnit)",
+   "level": "严重",
+   "mods": "竹 (Bamboo)",
+   "category": "C1",
+   "summary": "温泉器可以溢出无限的水，这意味着如果有玩家将其放到255格的高空，液体可以无限溢出到世界的每个活动的区块。"
+  },
+  {
+   "id": 173,
+   "url": "https://bug.mcmod.cn/item/20181207.html",
+   "name": "化学清洗机 (Chemical Washer)",
+   "level": "严重",
+   "mods": "通用机械 (Mekanism)",
+   "category": "D2",
+   "summary": "打开化学清洗机的界面，将可叠加的物品放到背包栏的第31格（背包物品栏第四行第一个)，通过SHIFT点击物品，数量会翻倍。"
+  },
+  {
+   "id": 174,
+   "url": "https://bug.mcmod.cn/item/20181206.html",
+   "name": "基础液体储罐 (Basic Fluid Tank)",
+   "level": "严重",
+   "mods": "通用机械 (Mekanism)",
+   "category": "D2",
+   "summary": "打开液体储罐的界面，将可叠加的物品放在背包栏的9-27格（背包的第一行最后两格~第三行末尾） 通过SHIFT点击物品，物品数量会翻倍。"
+  },
+  {
+   "id": 175,
+   "url": "https://bug.mcmod.cn/item/20181205.html",
+   "name": "信件 (Letter)",
+   "level": "严重",
+   "mods": "林业 (Forestry)",
+   "category": "D1",
+   "summary": "两封信件其中一封装入物品，在打开装入物品信件的一瞬间切换到没有物品的信件中，拿出物品后原来放入物品的信件东西不会减少。"
+  }
+ ]
+}

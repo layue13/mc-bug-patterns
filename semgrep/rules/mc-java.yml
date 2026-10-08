@@ -1,0 +1,664 @@
+# Semgrep rules distilled from https://bug.mcmod.cn (MC百科「MOD特性警示」, 176 entries).
+# metadata.pattern = paradigm id documented in ../../README.md; metadata.cases = ids in data/mcmod-bug-catalog.json.
+# These are *leads for review*, not proofs: see metadata.confidence.
+rules:
+- id: mc-d3-handler-ignores-simulate
+  languages:
+  - java
+  severity: WARNING
+  message: IItemHandler.insertItem/extractItem 没有使用 `simulate` 参数。管道/漏斗/传送带会先 simulate 再执行，忽略它会导致"模拟成功、实际多给/少扣"，是自动化复制的根源
+    (范式 D3)。
+  metadata:
+    pattern: D3
+    confidence: HIGH
+    cases:
+    - 2
+    - 60
+    - 65
+  pattern-either:
+  - patterns:
+    - pattern: |
+        public ItemStack insertItem(int $SLOT, ItemStack $STACK, boolean $SIM) { ... }
+    - pattern-not: |
+        public ItemStack insertItem(int $SLOT, ItemStack $STACK, boolean $SIM) { ... if (<... $SIM ...>) { ... } ... }
+    - pattern-not: |
+        public ItemStack insertItem(int $SLOT, ItemStack $STACK, boolean $SIM) { ... return <... $SIM ...>; ... }
+    - pattern-not: |
+        public ItemStack insertItem(int $SLOT, ItemStack $STACK, boolean $SIM) { ... $V = <... $SIM ...>; ... }
+    - pattern-not: |
+        public ItemStack insertItem(int $SLOT, ItemStack $STACK, boolean $SIM) { ... $V $N = <... $SIM ...>; ... }
+    - pattern-not: |
+        public ItemStack insertItem(int $SLOT, ItemStack $STACK, boolean $SIM) { ... $X.$M(..., $SIM, ...); ... }
+  - patterns:
+    - pattern: |
+        public ItemStack extractItem(int $SLOT, int $AMT, boolean $SIM) { ... }
+    - pattern-not: |
+        public ItemStack extractItem(int $SLOT, int $AMT, boolean $SIM) { ... if (<... $SIM ...>) { ... } ... }
+    - pattern-not: |
+        public ItemStack extractItem(int $SLOT, int $AMT, boolean $SIM) { ... return <... $SIM ...>; ... }
+    - pattern-not: |
+        public ItemStack extractItem(int $SLOT, int $AMT, boolean $SIM) { ... $V = <... $SIM ...>; ... }
+    - pattern-not: |
+        public ItemStack extractItem(int $SLOT, int $AMT, boolean $SIM) { ... $V $N = <... $SIM ...>; ... }
+    - pattern-not: |
+        public ItemStack extractItem(int $SLOT, int $AMT, boolean $SIM) { ... $X.$M(..., $SIM, ...); ... }
+- id: mc-d5-fluid-handler-ignores-action
+  languages:
+  - java
+  severity: WARNING
+  message: IFluidHandler.fill/drain 没有使用 FluidAction/doFill/doDrain 参数。模拟与执行结果不一致会让 流体被无消耗灌入或重复取出 (范式
+    D5)。
+  metadata:
+    pattern: D5
+    confidence: HIGH
+    cases:
+    - 15
+    - 91
+    - 94
+    - 96
+    - 105
+  pattern-either:
+  - patterns:
+    - pattern: |
+        public int fill(FluidStack $R, FluidAction $A) { ... }
+    - pattern-not: |
+        public int fill(FluidStack $R, FluidAction $A) { ... if (<... $A ...>) { ... } ... }
+    - pattern-not: |
+        public int fill(FluidStack $R, FluidAction $A) { ... return <... $A ...>; ... }
+    - pattern-not: |
+        public int fill(FluidStack $R, FluidAction $A) { ... $V = <... $A ...>; ... }
+    - pattern-not: |
+        public int fill(FluidStack $R, FluidAction $A) { ... $V $N = <... $A ...>; ... }
+    - pattern-not: |
+        public int fill(FluidStack $R, FluidAction $A) { ... $X.$M(..., $A, ...); ... }
+  - patterns:
+    - pattern: |
+        public FluidStack drain(FluidStack $R, FluidAction $A) { ... }
+    - pattern-not: |
+        public FluidStack drain(FluidStack $R, FluidAction $A) { ... if (<... $A ...>) { ... } ... }
+    - pattern-not: |
+        public FluidStack drain(FluidStack $R, FluidAction $A) { ... return <... $A ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(FluidStack $R, FluidAction $A) { ... $V = <... $A ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(FluidStack $R, FluidAction $A) { ... $V $N = <... $A ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(FluidStack $R, FluidAction $A) { ... $X.$M(..., $A, ...); ... }
+  - patterns:
+    - pattern: |
+        public FluidStack drain(int $R, FluidAction $A) { ... }
+    - pattern-not: |
+        public FluidStack drain(int $R, FluidAction $A) { ... if (<... $A ...>) { ... } ... }
+    - pattern-not: |
+        public FluidStack drain(int $R, FluidAction $A) { ... return <... $A ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(int $R, FluidAction $A) { ... $V = <... $A ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(int $R, FluidAction $A) { ... $V $N = <... $A ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(int $R, FluidAction $A) { ... $X.$M(..., $A, ...); ... }
+  - patterns:
+    - pattern: |
+        public int fill(FluidStack $R, boolean $DO) { ... }
+    - pattern-not: |
+        public int fill(FluidStack $R, boolean $DO) { ... if (<... $DO ...>) { ... } ... }
+    - pattern-not: |
+        public int fill(FluidStack $R, boolean $DO) { ... return <... $DO ...>; ... }
+    - pattern-not: |
+        public int fill(FluidStack $R, boolean $DO) { ... $V = <... $DO ...>; ... }
+    - pattern-not: |
+        public int fill(FluidStack $R, boolean $DO) { ... $V $N = <... $DO ...>; ... }
+    - pattern-not: |
+        public int fill(FluidStack $R, boolean $DO) { ... $X.$M(..., $DO, ...); ... }
+  - patterns:
+    - pattern: |
+        public FluidStack drain(FluidStack $R, boolean $DO) { ... }
+    - pattern-not: |
+        public FluidStack drain(FluidStack $R, boolean $DO) { ... if (<... $DO ...>) { ... } ... }
+    - pattern-not: |
+        public FluidStack drain(FluidStack $R, boolean $DO) { ... return <... $DO ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(FluidStack $R, boolean $DO) { ... $V = <... $DO ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(FluidStack $R, boolean $DO) { ... $V $N = <... $DO ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(FluidStack $R, boolean $DO) { ... $X.$M(..., $DO, ...); ... }
+  - patterns:
+    - pattern: |
+        public FluidStack drain(int $R, boolean $DO) { ... }
+    - pattern-not: |
+        public FluidStack drain(int $R, boolean $DO) { ... if (<... $DO ...>) { ... } ... }
+    - pattern-not: |
+        public FluidStack drain(int $R, boolean $DO) { ... return <... $DO ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(int $R, boolean $DO) { ... $V = <... $DO ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(int $R, boolean $DO) { ... $V $N = <... $DO ...>; ... }
+    - pattern-not: |
+        public FluidStack drain(int $R, boolean $DO) { ... $X.$M(..., $DO, ...); ... }
+- id: mc-d1-menu-always-valid
+  languages:
+  - java
+  severity: WARNING
+  message: Menu/Container 的 stillValid / canInteractWith 恒为 true。方块被拆/被传送/物品被移走后界面仍可操作， 是"A 开着界面、B 改动实体、A
+    还能取物"类复制的前提 (范式 D1)。
+  metadata:
+    pattern: D1
+    confidence: MEDIUM
+    cases:
+    - 99
+    - 101
+    - 120
+    - 143
+    - 144
+    - 145
+    - 171
+  pattern-either:
+  - pattern: |
+      public boolean stillValid(Player $P) { return true; }
+  - pattern: |
+      public boolean canInteractWith(EntityPlayer $P) { return true; }
+- id: mc-d1-item-backed-menu-saves-on-close-only
+  languages:
+  - java
+  severity: INFO
+  message: 以物品(背包/手袋/饰品盒)为后端的容器只在 removed()/onContainerClosed() 写回。玩家在不关界面时 下线、换槽、丢物品会导致写回丢失或写到别的物品上 (范式
+    D1)。请确认槽位变化即时落盘且校验物品身份。
+  metadata:
+    pattern: D1
+    confidence: LOW
+    cases:
+    - 121
+    - 122
+    - 123
+    - 56
+  pattern-either:
+  - pattern: |
+      public void removed(Player $P) { ... $X.getOrCreateTag(...); ... }
+  - pattern: |
+      public void onContainerClosed(EntityPlayer $P) { ... $X.setTagCompound(...); ... }
+  - pattern: |
+      public void onContainerClosed(EntityPlayer $P) { ... $X.writeToNBT(...); ... }
+- id: mc-d2-manual-quickmove
+  languages:
+  - java
+  severity: INFO
+  message: quickMoveStack / transferStackInSlot 内手写 set/put，而不是 moveItemStackTo/mergeItemStack。 硬编码槽位区间与玩家背包重叠时
+    Shift 点击会翻倍 (范式 D2)。
+  metadata:
+    pattern: D2
+    confidence: LOW
+    cases:
+    - 173
+    - 174
+    - 5
+    - 7
+  patterns:
+  - pattern-either:
+    - pattern: |
+        public ItemStack quickMoveStack(Player $P, int $I) { ... }
+    - pattern: |
+        public ItemStack transferStackInSlot(EntityPlayer $P, int $I) { ... }
+  - pattern-either:
+    - pattern: |
+        $RT1 $M1(...) { ... $S1.set($V1); ... }
+    - pattern: |
+        $RT1 $M1(...) { ... $S1.putStack($V1); ... }
+    - pattern: |
+        $RT1 $M1(...) { ... $C1.setItem($N1, $V1); ... }
+  - pattern-not: |
+      $RT2 $M2(...) {
+        ...
+        if (<... moveItemStackTo(...) ...>) { ... }
+        ...
+      }
+  - pattern-not: |
+      $RT2 $M2(...) {
+        ...
+        if (<... mergeItemStack(...) ...>) { ... }
+        ...
+      }
+  - pattern-not: |
+      $RT2 $M2(...) {
+        ...
+        if (<... $Z.moveItemStackTo(...) ...>) { ... }
+        ...
+      }
+  - pattern-not: |
+      $RT2 $M2(...) {
+        ...
+        if (<... $Z.mergeItemStack(...) ...>) { ... }
+        ...
+      }
+- id: mc-d4-inventory-item-stackable
+  languages:
+  - java
+  severity: INFO
+  message: Item 子类会打开带库存的界面(openScreen/openGui)，但类中没有 stacksTo(1)/setMaxStackSize(1)/getItemStackLimit。
+    若注册处也没限制，叠加的多个背包共享同一份库存 NBT，放入物品后"每个背包都有"(范式 D4)。
+  metadata:
+    pattern: D4
+    confidence: LOW
+    cases:
+    - 98
+    - 61
+    - 56
+  patterns:
+  - pattern-either:
+    - pattern: NetworkHooks.openScreen(...)
+    - pattern: $P.openGui(...)
+    - pattern: NetworkHooks.openGui(...)
+  - pattern-inside: |
+      class $C extends Item { ... }
+  - pattern-not-inside: |
+      class $C extends Item { ... public $C(...) { super(<... $P.stacksTo(1) ...>); } ... }
+  - pattern-not-inside: |
+      class $C extends Item {
+        ...
+        public int getItemStackLimit(...) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      class $C extends Item {
+        ...
+        public int getMaxStackSize(...) { ... }
+        ...
+      }
+- id: mc-d4-entity-save-to-item
+  languages:
+  - java
+  severity: INFO
+  message: 将实体序列化进物品(灵魂瓶/生物球类)。需要同时处理：携带的容器 NBT(驴/骡/箱子)、BOSS 黑名单、 刷怪箱重复生成时清空 Slot (范式 D4/G3)。
+  metadata:
+    pattern: D4
+    confidence: LOW
+    cases:
+    - 73
+    - 104
+    - 106
+  patterns:
+  - pattern-either:
+    - pattern: $E.saveWithoutId(...)
+    - pattern: $E.save($TAG)
+    - pattern: $E.writeToNBT($TAG)
+  - pattern-inside: |
+      $RET $F(..., LivingEntity $E, ...) { ... }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.isBoss(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... isBoss(...) ...>) { ... }
+        ...
+      }
+- id: mc-g1-world-edit-without-protection-check
+  languages:
+  - java
+  severity: WARNING
+  message: Item/Block 方法直接改世界方块，但同一方法内没有任何保护检查 (mayInteract / mayUseItemAt / BlockEvent.BreakEvent / canPlayerEdit
+    / canHarvestBlock)。领地/保护插件通常挂在事件上，直接 setBlock/destroyBlock 会绕过它们 (范式 G1)。
+  metadata:
+    pattern: G1
+    confidence: MEDIUM
+    cases:
+    - 115
+    - 131
+    - 132
+    - 133
+    - 157
+    - 164
+    - 167
+    - 168
+    - 169
+    - 170
+  patterns:
+  - pattern-either:
+    - pattern: $W.destroyBlock(...)
+    - pattern: $W.removeBlock(...)
+    - pattern: $W.setBlock(...)
+    - pattern: $W.setBlockState(...)
+    - pattern: $W.setBlockToAir(...)
+  - pattern-inside: |
+      class $C extends $PARENT { ... }
+  - metavariable-regex:
+      metavariable: $PARENT
+      regex: (Item|.*Item|.*Wand|.*Tool|.*Pickaxe|.*Block|.*Entity|.*BlockEntity|TileEntity.*)
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.mayInteract(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.mayUseItemAt(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.canPlayerEdit(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.isClientSide ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.isClientSide() ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... new $T.BreakEvent(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... new BreakEvent(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.onBlockBreakEvent(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.post(...) ...>) { ... }
+        ...
+      }
+- id: mc-g1-unbounded-explosion-power
+  languages:
+  - java
+  severity: WARNING
+  message: explode()/createExplosion() 的威力由非常量表达式决定且没有 min/clamp 上限。TNT 数量、火药数量、 能量等放大因子会让爆炸半径无限增长，造成无视领地大面积破坏或宕机
+    (范式 G1/C1)。
+  metadata:
+    pattern: G1
+    confidence: MEDIUM
+    cases:
+    - 125
+    - 129
+    - 151
+    - 152
+    - 126
+  patterns:
+  - pattern-either:
+    - pattern: $W.explode($E, $X, $Y, $Z, $POWER, ...)
+    - pattern: $W.createExplosion($E, $X, $Y, $Z, $POWER, ...)
+  - metavariable-regex:
+      metavariable: $POWER
+      regex: ^(?![\d.]+[fFdDlL]?$)(?!.*(?:min|clamp|MAX|Math\.min|Mth\.clamp)).*[A-Za-z_].*$
+- id: mc-g2-forced-chunk-loading
+  languages:
+  - java
+  severity: INFO
+  message: 代码主动保持区块加载。机器/物品放置即生效且无能耗时，会被拿来做免费区块加载器 (范式 G2)。 请确认受配置开关、玩家在线或能耗约束。
+  metadata:
+    pattern: G2
+    confidence: MEDIUM
+    cases:
+    - 87
+    - 108
+    - 109
+    - 110
+    - 111
+  pattern-either:
+  - pattern: ForgeChunkManager.forceChunk(...)
+  - pattern: ForgeChunkManager.requestTicket(...)
+  - pattern: $L.getChunkSource().addRegionTicket(...)
+  - pattern: $L.setChunkForced(...)
+  - pattern: $L.getChunkProvider().loadChunk(...)
+- id: mc-g3-global-world-state-from-gameplay
+  languages:
+  - java
+  severity: INFO
+  message: 玩法代码直接修改全服天气/时间。普通玩家可触发时会影响全服体验，需要配置开关或权限 (范式 G3)。
+  metadata:
+    pattern: G3
+    confidence: MEDIUM
+    cases:
+    - 113
+    - 127
+    - 137
+    - 138
+    - 139
+    - 140
+    - 141
+    - 146
+    - 147
+    - 148
+  pattern-either:
+  - pattern: $W.setDayTime(...)
+  - pattern: $W.setWorldTime(...)
+  - pattern: $W.setRainLevel(...)
+  - pattern: $W.setThunderLevel(...)
+  - pattern: $W.getLevelData().setRaining(...)
+  - pattern: $W.getWorldInfo().setRaining(...)
+  - pattern: $W.getWorldInfo().setThundering(...)
+- id: mc-g3-creative-like-flight
+  languages:
+  - java
+  severity: INFO
+  message: 直接改 abilities.mayfly/allowFlying。无能耗、无条件的飞行属于创造级能力 (范式 G3)。
+  metadata:
+    pattern: G3
+    confidence: MEDIUM
+    cases:
+    - 128
+    - 159
+  pattern-either:
+  - pattern: $P.getAbilities().mayfly = true
+  - pattern: $P.capabilities.allowFlying = true
+  - pattern: $P.getAbilities().setMayFly(true)
+- id: mc-g4-op-grant-or-shell
+  languages:
+  - java
+  severity: ERROR
+  message: 授予 OP / 执行系统命令 / 反序列化外部类。真实案例：魔改版"耀月"后门给硬编码玩家名 OP (范式 G4)。 需要人工确认这是不是合法的管理功能。
+  metadata:
+    pattern: G4
+    confidence: HIGH
+    cases:
+    - 74
+    - 70
+    - 22
+  pattern-either:
+  - pattern: $S.getPlayerList().op(...)
+  - pattern: $S.getConfigurationManager().addOp(...)
+  - pattern: $S.getPlayerList().getOps().add(...)
+  - pattern: Runtime.getRuntime().exec(...)
+  - pattern: new ProcessBuilder(...)
+  - pattern: new ObjectInputStream(...)
+  - pattern: new URLClassLoader(...)
+- id: mc-g4-packet-handler-unchecked-position
+  languages:
+  - java
+  severity: WARNING
+  message: C2S 网络包处理器直接用包内坐标取方块/TileEntity，无距离/已加载/菜单校验。可被作弊端利用刷物品、 强制加载区块、触发服务端崩溃 (范式 G4)。
+  metadata:
+    pattern: G4
+    confidence: MEDIUM
+    cases:
+    - 70
+  patterns:
+  - pattern-either:
+    - pattern: $L.getBlockEntity($MSG.$POS)
+    - pattern: $L.getTileEntity($MSG.$POS)
+    - pattern: $L.getBlockState($MSG.$POS)
+  - pattern-inside: |
+      $RET $F($T1 $MSG, $T2 $CTX) { ... }
+  - pattern-inside: |
+      $RET $F(...) {
+        ...
+        $Y.getSender();
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.hasChunkAt(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.isLoaded(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.distanceToSqr(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.stillValid(...) ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $X.isAreaLoaded(...) ...>) { ... }
+        ...
+      }
+- id: mc-c1-recipe-optional-get
+  languages:
+  - java
+  severity: WARNING
+  message: 配方查询结果直接 .get()/.orElseThrow()。输入槽放入无配方物品会抛异常，在服务端 tick 里就是崩服 (范式 C1，Gaia Dimension 案例)。
+  metadata:
+    pattern: C1
+    confidence: HIGH
+    cases:
+    - 12
+  pattern-either:
+  - pattern: $RM.getRecipeFor(...).get()
+  - pattern: $RM.getRecipeFor(...).orElseThrow()
+  - pattern: $RM.getRecipeFor(...).orElseThrow(...)
+- id: mc-c1-nullable-entity-hit
+  languages:
+  - java
+  severity: INFO
+  message: 射线/钩子命中结果直接解引用。命中实体、掉落物、玩家时若分支未实现会 NPE 崩服 (贝叶棕钓鱼竿案例，范式 C1)。
+  metadata:
+    pattern: C1
+    confidence: LOW
+    cases:
+    - 40
+    - 62
+  patterns:
+  - pattern-either:
+    - pattern: $HIT.getEntity().$M(...)
+    - pattern: $HIT.entityHit.$M(...)
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $HIT != null ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $HIT.getEntity() != null ...>) { ... }
+        ...
+      }
+  - pattern-not-inside: |
+      $RET $F(...) {
+        ...
+        if (<... $HIT.entityHit != null ...>) { ... }
+        ...
+      }
+- id: mc-c1-redstone-reentrant-action
+  languages:
+  - java
+  severity: INFO
+  message: neighborChanged 里直接做加工/传送/掉落且无冷却或 scheduleTick。高频红石(拉杆连点)重入会导致 复制或栈溢出崩溃 (范式 C1/D3，Translocation
+    Matrix、Combustion 案例)。
+  metadata:
+    pattern: C1
+    confidence: LOW
+    cases:
+    - 35
+    - 66
+  patterns:
+  - pattern-either:
+    - pattern: |
+        public void neighborChanged(...) { ... $W.setBlock(...); ... }
+    - pattern: |
+        public void neighborChanged(...) { ... $W.removeBlock(...); ... }
+    - pattern: |
+        public void neighborChanged(...) { ... $W.destroyBlock(...); ... }
+  - pattern-not: |
+      public void neighborChanged(...) {
+        ...
+        $X.scheduleTick(...);
+        ...
+      }
+  - pattern-not: |
+      public void neighborChanged(...) {
+        ...
+        if (<... $X.isClientSide ...>) { ... }
+        ...
+      }
+  - pattern-not: |
+      public void neighborChanged(...) {
+        ...
+        if (<... $X.isRemote ...>) { ... }
+        ...
+      }
+- id: mc-c2-client-class-in-common-code
+  languages:
+  - java
+  severity: WARNING
+  message: 非 client 包里引用 Minecraft 客户端单例。专服加载时 ClassNotFound/NoSuchMethodError 直接崩溃； 需 @OnlyIn(Dist.CLIENT)
+    / DistExecutor / 独立 client 包隔离 (范式 C2)。
+  metadata:
+    pattern: C2
+    confidence: MEDIUM
+    cases:
+    - 85
+    - 16
+    - 71
+  paths:
+    exclude:
+    - '**/client/**'
+    - '**/Client*.java'
+    - '**/*Client.java'
+    - '**/*Renderer*.java'
+    - '**/*Screen*.java'
+  pattern-either:
+  - pattern: Minecraft.getInstance()
+  - pattern: Minecraft.getMinecraft()
+- id: mc-c2-date-triggered-branch
+  languages:
+  - java
+  severity: INFO
+  message: 代码路径由系统日期触发(彩蛋/节日)。此类分支平时不会被测试覆盖：更好看的羊驼 4/1、12/9 彩蛋崩溃 (范式 C2)。请用可注入的 Clock 并在测试里伪造日期。
+  metadata:
+    pattern: C2
+    confidence: MEDIUM
+    cases:
+    - 14
+  pattern-either:
+  - pattern: LocalDate.now().getMonthValue()
+  - pattern: LocalDate.now().getDayOfMonth()
+  - pattern: Calendar.getInstance().get(Calendar.MONTH)
+  - pattern: Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+  - pattern: LocalDateTime.now().getMonthValue()

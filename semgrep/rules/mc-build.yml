@@ -1,0 +1,24 @@
+# Dependency/build-file rules (generic mode).
+rules:
+- id: mc-g4-vulnerable-log4j
+  languages:
+  - generic
+  severity: ERROR
+  message: 依赖了 Log4j 2.0–2.16 (Log4Shell CVE-2021-44228 及后续 CVE)。MC百科列为"致命"：聊天栏即可远程执行。 升级到 >= 2.17.1，或确认由启动器/加载器的补丁覆盖
+    (范式 G4)。
+  metadata:
+    pattern: G4
+    confidence: HIGH
+    cases:
+    - 22
+  paths:
+    include:
+    - '*.gradle'
+    - '*.gradle.kts'
+    - pom.xml
+    - '*.properties'
+    - '*.toml'
+    - '*.versions.toml'
+  pattern-either:
+  - pattern-regex: log4j[-\w]*["\x27:@ =/\s]+(?:version["\x27=:\s]*)?2\.(?:(?:\d|1[0-6])(?!\d)(?:\.\d+)*|17\.0(?![\d.]))
+  - pattern-regex: log4j-[\w-]+</artifactId>\s*<version>\s*2\.(?:(?:\d|1[0-6])(?!\d)(?:\.\d+)*|17\.0(?![\d.]))
