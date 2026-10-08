@@ -109,6 +109,25 @@ class Tests {
             }
         }
     }
+    // Paraphrase of a real pattern found by the fix-commit benchmark (server branch guarded only by !isClientSide)
+    class BoxBlock extends BlockMekanism {
+        public InteractionResult use(BlockState s, Level world, BlockPos pos, Player player) {
+            if (!world.isClientSide && player.isShiftKeyDown()) {
+                // ruleid: mc-g1-world-edit-without-protection-check
+                world.setBlockAndUpdate(pos, s);
+            }
+            return null;
+        }
+    }
+    class BoxBlockFixed extends BlockMekanism {
+        public InteractionResult use(BlockState s, Level world, BlockPos pos, Player player) {
+            if (!canReplace(world, player, pos, s)) { return null; }
+            // ok: mc-g1-world-edit-without-protection-check
+            world.setBlockAndUpdate(pos, s);
+            return null;
+        }
+        private static boolean canReplace(Level world, Player player, BlockPos pos, BlockState s) { return world.mayInteract(player, pos); }
+    }
     class Boom {
         void a(Level w, int count) {
             // ruleid: mc-g1-unbounded-explosion-power

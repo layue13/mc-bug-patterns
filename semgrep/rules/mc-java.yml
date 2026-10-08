@@ -299,8 +299,8 @@ rules:
   languages:
   - java
   severity: WARNING
-  message: Item/Block 方法直接改世界方块，但同一方法内没有任何保护检查 (mayInteract / mayUseItemAt / BlockEvent.BreakEvent / canPlayerEdit
-    / canHarvestBlock)。领地/保护插件通常挂在事件上，直接 setBlock/destroyBlock 会绕过它们 (范式 G1)。
+  message: Item/Block/BlockEntity 方法直接改世界方块，但同一方法内没有任何保护检查 (mayInteract / mayUseItemAt / BlockEvent.BreakEvent
+    / canPlayerEdit / canHarvestBlock)。领地/保护插件通常挂在事件上，直接 setBlock/destroyBlock 会绕过它们 (范式 G1)。 对自身位置(worldPosition/getBlockPos)的修改视为方块实体维护自身状态，不报。
   metadata:
     pattern: G1
     confidence: MEDIUM
@@ -321,12 +321,47 @@ rules:
     - pattern: $W.removeBlock(...)
     - pattern: $W.setBlock(...)
     - pattern: $W.setBlockState(...)
+    - pattern: $W.setBlockAndUpdate(...)
     - pattern: $W.setBlockToAir(...)
   - pattern-inside: |
       class $C extends $PARENT { ... }
+  - pattern-not: $W.destroyBlock(worldPosition, ...)
+  - pattern-not: $W.destroyBlock(this.worldPosition, ...)
+  - pattern-not: $W.destroyBlock(getBlockPos(), ...)
+  - pattern-not: $W.destroyBlock(this.getBlockPos(), ...)
+  - pattern-not: $W.destroyBlock(this.pos, ...)
+  - pattern-not: $W.removeBlock(worldPosition, ...)
+  - pattern-not: $W.removeBlock(this.worldPosition, ...)
+  - pattern-not: $W.removeBlock(getBlockPos(), ...)
+  - pattern-not: $W.removeBlock(this.getBlockPos(), ...)
+  - pattern-not: $W.removeBlock(this.pos, ...)
+  - pattern-not: $W.setBlock(worldPosition, ...)
+  - pattern-not: $W.setBlock(this.worldPosition, ...)
+  - pattern-not: $W.setBlock(getBlockPos(), ...)
+  - pattern-not: $W.setBlock(this.getBlockPos(), ...)
+  - pattern-not: $W.setBlock(this.pos, ...)
+  - pattern-not: $W.setBlockState(worldPosition, ...)
+  - pattern-not: $W.setBlockState(this.worldPosition, ...)
+  - pattern-not: $W.setBlockState(getBlockPos(), ...)
+  - pattern-not: $W.setBlockState(this.getBlockPos(), ...)
+  - pattern-not: $W.setBlockState(this.pos, ...)
+  - pattern-not: $W.setBlockAndUpdate(worldPosition, ...)
+  - pattern-not: $W.setBlockAndUpdate(this.worldPosition, ...)
+  - pattern-not: $W.setBlockAndUpdate(getBlockPos(), ...)
+  - pattern-not: $W.setBlockAndUpdate(this.getBlockPos(), ...)
+  - pattern-not: $W.setBlockAndUpdate(this.pos, ...)
+  - pattern-not: $W.setBlockToAir(worldPosition, ...)
+  - pattern-not: $W.setBlockToAir(this.worldPosition, ...)
+  - pattern-not: $W.setBlockToAir(getBlockPos(), ...)
+  - pattern-not: $W.setBlockToAir(this.getBlockPos(), ...)
+  - pattern-not: $W.setBlockToAir(this.pos, ...)
   - metavariable-regex:
       metavariable: $PARENT
-      regex: (Item|.*Item|.*Wand|.*Tool|.*Pickaxe|.*Block|.*Entity|.*BlockEntity|TileEntity.*)
+      regex: .*(Item|Block|Wand|Tool|Pickaxe|Entity|Tile).*
+  - pattern-not-inside: |
+      if ($X.isClientSide) { ... }
+  - pattern-not-inside: |
+      if ($X.isClientSide()) { ... }
   - pattern-not-inside: |
       $RET $F(...) {
         ...
@@ -343,18 +378,6 @@ rules:
       $RET $F(...) {
         ...
         if (<... $X.canPlayerEdit(...) ...>) { ... }
-        ...
-      }
-  - pattern-not-inside: |
-      $RET $F(...) {
-        ...
-        if (<... $X.isClientSide ...>) { ... }
-        ...
-      }
-  - pattern-not-inside: |
-      $RET $F(...) {
-        ...
-        if (<... $X.isClientSide() ...>) { ... }
         ...
       }
   - pattern-not-inside: |
@@ -381,6 +404,28 @@ rules:
         if (<... $X.post(...) ...>) { ... }
         ...
       }
+  - pattern-not-inside:
+      patterns:
+      - pattern: |
+          $RET $F(...) {
+            ...
+            if (<... $G(...) ...>) { ... }
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $G
+          regex: (?i)^(can|may|is|has|check|verify|allow|permit|test|try)\w*(place|replace|break|edit|interact|build|permission|allowed|claim|protect)\w*$
+  - pattern-not-inside:
+      patterns:
+      - pattern: |
+          $RET $F(...) {
+            ...
+            if (<... $X.$G(...) ...>) { ... }
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $G
+          regex: (?i)^(can|may|is|has|check|verify|allow|permit|test|try)\w*(place|replace|break|edit|interact|build|permission|allowed|claim|protect)\w*$
 - id: mc-g1-unbounded-explosion-power
   languages:
   - java
@@ -628,7 +673,7 @@ rules:
   - java
   severity: WARNING
   message: 非 client 包里引用 Minecraft 客户端单例。专服加载时 ClassNotFound/NoSuchMethodError 直接崩溃； 需 @OnlyIn(Dist.CLIENT)
-    / DistExecutor / 独立 client 包隔离 (范式 C2)。
+    / DistExecutor / 独立 client 包隔离 (范式 C2)。 已排除 @OnlyIn/@SideOnly/@EventBusSubscriber 标注的类与方法，以及常见客户端路径。
   metadata:
     pattern: C2
     confidence: MEDIUM
@@ -643,9 +688,36 @@ rules:
     - '**/*Client.java'
     - '**/*Renderer*.java'
     - '**/*Screen*.java'
-  pattern-either:
-  - pattern: Minecraft.getInstance()
-  - pattern: Minecraft.getMinecraft()
+    - '**/render/**'
+    - '**/renderer/**'
+    - '**/ponder/**'
+    - '**/gui/**'
+    - '**/ui/**'
+    - '**/screen/**'
+    - '**/emi/**'
+    - '**/jei/**'
+    - '**/rei/**'
+    - '**/*Gui*.java'
+    - '**/*Ponder*.java'
+    - '**/*Render*.java'
+  patterns:
+  - pattern-either:
+    - pattern: Minecraft.getInstance()
+    - pattern: Minecraft.getMinecraft()
+  - pattern-not-inside: |
+      @OnlyIn(...) class $C { ... }
+  - pattern-not-inside: |
+      @OnlyIn(...) $RET $M(...) { ... }
+  - pattern-not-inside: |
+      @SideOnly(...) class $C { ... }
+  - pattern-not-inside: |
+      @SideOnly(...) $RET $M(...) { ... }
+  - pattern-not-inside: |
+      @EventBusSubscriber(...) class $C { ... }
+  - pattern-not-inside: |
+      @Mod.EventBusSubscriber(...) class $C { ... }
+  - pattern-not-inside: |
+      @OnlyIn(...) interface $C { ... }
 - id: mc-c2-date-triggered-branch
   languages:
   - java
