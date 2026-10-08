@@ -18,6 +18,7 @@ else
   src="$out/clones"
 fi
 mkdir -p "$out" "$out/json"
+out="$(cd "$out" && pwd)"
 
 if [[ $mode == org ]]; then
   mkdir -p "$src"
@@ -40,5 +41,6 @@ scan_one() {
 export -f scan_one
 find "$src" -mindepth 1 -maxdepth 1 -type d | xargs -P "$jobs" -I{} bash -c 'scan_one "$@"' _ {} "$out" "${rules[@]}"
 
-python3 "$here/scripts/aggregate.py" "$out/json"
-cp "$out/json/findings.csv" "$out/json/SUMMARY.md" "$out/"
+python3 "$here/scripts/aggregate.py" "$out/json" --src "$src"
+cp "$out/json/findings.csv" "$out/json/findings.jsonl" "$out/json/SUMMARY.md" "$out/"
+echo "next: AI triage reads $out/findings.jsonl -- see review/README.md"
